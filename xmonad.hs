@@ -1,9 +1,18 @@
 import XMonad
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Workspace
 import XMonad.Config.Azerty
+import XMonad.Actions.Volume
+import XMonad.Actions.Search
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
+import XMonad.Util.Run(spawnPipe)   
+import XMonad.Actions.Submap
+import XMonad.Util.EZConfig
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
-import XMonad.Actions.Volume
-
+import System.IO
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -35,8 +44,17 @@ data XConfig l = XConfig
 term :: String
 term = "gnome-terminal"
 
+multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images !> (prefixAware google))
+
+searchEngineMap method = M.fromList $
+       [ ((0, xK_g), method google)
+       , ((0, xK_h), method hoogle)
+       , ((0, xK_w), method wikipedia)
+       ]
+
 myLayout = tiled ||| Full
   where
+    
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
      -- The default number of windows in the master pane
@@ -48,9 +66,13 @@ myLayout = tiled ||| Full
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-    ((modMask, xK_d),     spawn "dmenu_run")
-  , ((modMask, xK_Up),    windows W.focusUp)
-  , ((modMask, xK_Down),  windows W.focusDown)
+    ((modMask, xK_Up),  sendMessage (IncMasterN 1))
+  , ((modMask, xK_Down),  sendMessage (IncMasterN (-1)))
+  , ((modMask .|. shiftMask, xK_m     ), workspacePrompt defaultXPConfig (windows . W.shift))
+  , ((modMask, xK_s), promptSearch defaultXPConfig multiEngine)
+  -- , ((modMask, xK_Up),    windows W.focusUp)
+  -- , ((modMask, xK_Down),  windows W.focusDown)
+  , ((modMask, xK_d),  shellPrompt defaultXPConfig)
   , ((modMask, xK_Left),  sendMessage Shrink)
   , ((modMask, xK_Right), sendMessage Expand)
   , ((noModMask, xK_F12),   spawn "xbacklight -inc 10")
@@ -58,6 +80,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xK_F2),    lowerVolume 3 >> return ())
   , ((noModMask, xK_F3),    raiseVolume 3 >> return ())
   , ((noModMask, xK_F1),    toggleMute >> return ())
+  -- Search commands
+  -- , ((modMask, xK_s), submap $ searchEngineMap $ promptSearch defaultXPConfig)
+  -- , ((modMask .|. shiftMask, xK_s), submap $ searchEngineMap $ selectSearch)
   ]
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
@@ -66,14 +91,25 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   | (key, sc) <- zip [xK_z, xK_e, xK_r] [0..]
   , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
+
 main :: IO()
-main = xmonad $ defaultConfig {
+main = do
+  xmproc <- spawnPipe "xmobar"
+  
+  xmonad $ defaultConfig {
+  manageHook = manageDocks <+> manageHook defaultConfig,
+  logHook = dynamicLogWithPP xmobarPP
+            { ppOutput = hPutStrLn xmproc
+            , ppTitle = xmobarColor "green" "" . shorten 50
+            },
   terminal = term,
-  keys = \c -> azertyKeys c `M.union` keys defaultConfig c `M.union` myKeys c,
-  layoutHook = myLayout,
+  keys = \c -> azertyKeys c
+               <+> keys defaultConfig c
+               <+> myKeys c,
+  layoutHook = avoidStruts  $ myLayout, 
   borderWidth = 1,
   normalBorderColor  = "#424242",
   focusedBorderColor = "#FA5882",
-  -- workspaces = ["emacs", "www", "other"],
+  workspaces = ["emacs", "www", "other", "4", "5"],
   modMask  = mod4Mask
 }
