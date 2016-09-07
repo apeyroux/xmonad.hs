@@ -48,16 +48,16 @@ myLayout = tiled ||| Full
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-    ((modMask, xK_d), spawn "dmenu_run")
-  , ((modMask, xK_Up), windows W.focusUp)
-  , ((modMask, xK_Down), windows W.focusDown)
-  , ((modMask, xK_Left), sendMessage Shrink)
+    ((modMask, xK_d),     spawn "dmenu_run")
+  , ((modMask, xK_Up),    windows W.focusUp)
+  , ((modMask, xK_Down),  windows W.focusDown)
+  , ((modMask, xK_Left),  sendMessage Shrink)
   , ((modMask, xK_Right), sendMessage Expand)
-  , ((modMask, xK_F12), spawn "xbacklight -inc 10")
-  , ((modMask, xK_F11), spawn "xbacklight -dec 10")
-  , ((modMask, xK_F2), lowerVolume 3 >> return ())
-  , ((modMask, xK_F3), raiseVolume 3 >> return ())
-  , ((modMask, xK_F1), toggleMute >> return ())
+  , ((noModMask, xK_F12),   spawn "xbacklight -inc 10")
+  , ((noModMask, xK_F11),   spawn "xbacklight -dec 10")
+  , ((noModMask, xK_F2),    lowerVolume 3 >> return ())
+  , ((noModMask, xK_F3),    raiseVolume 3 >> return ())
+  , ((noModMask, xK_F1),    toggleMute >> return ())
   ]
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
