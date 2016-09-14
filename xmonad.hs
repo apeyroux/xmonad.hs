@@ -12,6 +12,7 @@ import           XMonad.Prompt.Shell
 import           XMonad.Prompt.Workspace
 import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
+import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
 
 {--
@@ -66,21 +67,21 @@ myLayout = tiled ||| Full
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-    ((modMask, xK_Up                 ),  sendMessage (IncMasterN 1))
-  , ((modMask, xK_Down               ),  sendMessage (IncMasterN (-1)))
-  , ((modMask .|. shiftMask, xK_m    ), workspacePrompt defaultXPConfig (windows . W.shift))
+  --   ((modMask, xK_Up                 ), sendMessage (IncMasterN 1))
+  -- , ((modMask, xK_Down               ), sendMessage (IncMasterN (-1)))
+    ((modMask .|. shiftMask, xK_m    ), workspacePrompt defaultXPConfig (windows . W.shift))
   , ((modMask, xK_s                  ), promptSearch defaultXPConfig multiEngine)
-  -- , ((modMask, xK_Up              ),    windows W.focusUp)
-  -- , ((modMask, xK_Down            ),  windows W.focusDown)
-  , ((modMask, xK_d                  ),  shellPrompt defaultXPConfig)
+  -- , ((modMask, xK_Up              ), windows W.focusUp)
+  -- , ((modMask, xK_Down            ), windows W.focusDown)
+  , ((modMask, xK_d                  ), shellPrompt defaultXPConfig)
   , ((modMask, xK_x                  ), spawn "xscreensaver-command -lock")
-  , ((modMask, xK_Left               ),  sendMessage Shrink)
+  , ((modMask, xK_Left               ), sendMessage Shrink)
   , ((modMask, xK_Right              ), sendMessage Expand)
-  , ((noModMask, xK_F12              ),   spawn "xbacklight -inc 10")
-  , ((noModMask, xK_F11              ),   spawn "xbacklight -dec 10")
-  , ((noModMask, xK_F2               ),    lowerVolume 3 >> return ())
-  , ((noModMask, xK_F3               ),    raiseVolume 3 >> return ())
-  , ((noModMask, xK_F1               ),    toggleMute >> return ())
+  , ((noModMask, xK_F12              ), spawn "xbacklight -inc 10")
+  , ((noModMask, xK_F11              ), spawn "xbacklight -dec 10")
+  , ((noModMask, xK_F2               ), lowerVolume 3 >> return ())
+  , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
+  , ((noModMask, xK_F1               ), toggleMute >> return ())
   -- Search commands
   -- , ((modMask, xK_s               ), submap $ searchEngineMap $ promptSearch defaultXPConfig)
   -- , ((modMask .|. shiftMask, xK_s ), submap $ searchEngineMap $ selectSearch)
@@ -102,6 +103,7 @@ main = do
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
+            , ppExtras = [ padL loadAvg, padL battery, padL aumixVolume ]
             },
   terminal = term,
   keys = \c -> azertyKeys c
