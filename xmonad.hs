@@ -43,7 +43,7 @@ data XConfig l = XConfig
 --}
 
 term :: String
-term = "tilda"
+term = "terminator"
 
 multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images !> (prefixAware google))
 
@@ -111,8 +111,8 @@ main = do
                <+> myKeys c,
   layoutHook = avoidStruts  $ myLayout, 
   borderWidth = 1,
-  normalBorderColor  = "#424242",
-  focusedBorderColor = "#FA5882",
+  normalBorderColor  = "#44475a",
+  focusedBorderColor = "#ff5555",
   workspaces = ["emacs", "www", "other", "4", "5"],
   modMask  = mod4Mask
 }

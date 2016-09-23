@@ -1,31 +1,28 @@
 Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
         , borderColor = "black"
         , border = TopB
-        , bgColor = "black"
-        , fgColor = "grey"
+        , bgColor = "#282a36"
+        , fgColor = "#f8f8f2"
         , position = BottomW L 100
-        , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                        , Run Cpu ["-t","cpu <bar>:<total>%","-L","3","-H","50","-l", "lightblue","-n","green","-h","red"] 10
-                        , Run Memory ["-t","mem <usedbar>:<usedratio>% <fc=#8888ff><used>Mo</fc>"
-			, "-l", "lightblue", "-n","green","-h","red"
+        , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","-h","#50fa7b","-l","#ff5555","-m","#ffb86c","-n","#8be9fd"] 36000
+                        , Run Cpu ["-t","cpu <bar>:<total>%","-L","3","-H","50"
+			, "-h","#ff5555","-l","#50fa7b","-n","#ffb86c"	
+			] 10
+                        , Run Memory ["-t","mem <usedbar>:<usedratio>% <used>Mo"
+			, "-h","#ff5555","-l","#50fa7b","-n","#ffb86c"
 			, "-H", "10000"
 			, "-L", "5000"] 10
-			, Run Wireless "wlp2s0" 
-                          [ "-t", "<fc=#8888FF><essid></fc> <qualitybar>:<quality>%"
-                          , "-l", "red"
-                          , "-n", "orange"
-                          , "-h", "green"
-                          ] 10
+			, Run Wireless "wlp2s0" [ "-t", "<fc=#bd93f9><essid></fc> <qualitybar>:<quality>%"
+			, "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
+			] 10
 			, Run Network "wlp2s0" 
                           [ "-t", "r:<rx> t:<tx>"
 			  , "-S", "True"
-                          , "-l", "red"
-                          , "-n", "orange"
-                          , "-h", "green"
+			  , "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
                           ] 10
-                        , Run Date "<fc=#A9D0F5>%d/%m/%Y</fc> <fc=#F4FA58>%H:%M:%S</fc>" "date" 10
+                        , Run Date "<fc=#f1fa8c>%d/%m/%Y</fc> <fc=#50fa7b>%H:%M:%S</fc>" "date" 10
 			, Run Com "/home/alp/.xmonad/vol.sh" [] "vol" 10
-			, Run BatteryP ["BAT0"] ["-t", "<leftbar>% (<timeleft>)","-h","green","-l","red","-m","orange"] 600
+			, Run BatteryP ["BAT0"] ["-t", "<leftbar>% (<timeleft>)","-h","#50fa7b","-l","#ff5555","-m","#ffb86c","-n","#8be9fd"] 600
                         , Run StdinReader
                         ]
         , sepChar = "%"
