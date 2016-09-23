@@ -5,20 +5,30 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
         , fgColor = "grey"
         , position = BottomW L 100
         , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                        , Run Cpu ["-t","cpu <bar>:<total>%","-L","3","-H","50","-l", "lightblue", "-n","green","-h","red"] 10
-                        , Run Memory ["-t","mem <usedbar>:<usedratio>%","-l", "lightblue", "-n","green","-h","red"] 10
+                        , Run Cpu ["-t","cpu <bar>:<total>%","-L","3","-H","50","-l", "lightblue","-n","green","-h","red"] 10
+                        , Run Memory ["-t","mem <usedbar>:<usedratio>% <fc=#8888ff><used>Mo</fc>"
+			, "-l", "lightblue", "-n","green","-h","red"
+			, "-H", "10000"
+			, "-L", "5000"] 10
 			, Run Wireless "wlp2s0" 
                           [ "-t", "<fc=#8888FF><essid></fc> <qualitybar>:<quality>%"
                           , "-l", "red"
-                          , "-n", "yellow"
+                          , "-n", "orange"
+                          , "-h", "green"
+                          ] 10
+			, Run Network "wlp2s0" 
+                          [ "-t", "r:<rx> t:<tx>"
+			  , "-S", "True"
+                          , "-l", "red"
+                          , "-n", "orange"
                           , "-h", "green"
                           ] 10
                         , Run Date "<fc=#A9D0F5>%d/%m/%Y</fc> <fc=#F4FA58>%H:%M:%S</fc>" "date" 10
 			, Run Com "/home/alp/.xmonad/vol.sh" [] "vol" 10
-			, Run BatteryP ["BAT0"] ["-t", "<leftbar>% (<timeleft>)","-h","green","-l","red","-m","lightblue"] 600
+			, Run BatteryP ["BAT0"] ["-t", "<leftbar>% (<timeleft>)","-h","green","-l","red","-m","orange"] 600
                         , Run StdinReader
                         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% | vol:%vol% bat:%battery% | %cpu% %memory% | %wlp2s0wi% }{%date%"
+        , template = "%StdinReader% | vol:%vol% bat:%battery% | %cpu% %memory% | %wlp2s0wi% %wlp2s0%}{%date%"
         }

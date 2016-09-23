@@ -43,7 +43,7 @@ data XConfig l = XConfig
 --}
 
 term :: String
-term = "gnome-terminal"
+term = "tilda"
 
 multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images !> (prefixAware google))
 
@@ -67,7 +67,7 @@ myLayout = tiled ||| Full
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-  --   ((modMask, xK_Up                 ), sendMessage (IncMasterN 1))
+  --   ((modMask, xK_Up                 ), sendMessage (IncqMasterN 1))
   -- , ((modMask, xK_Down               ), sendMessage (IncMasterN (-1)))
     ((modMask .|. shiftMask, xK_m    ), workspacePrompt defaultXPConfig (windows . W.shift))
   , ((modMask, xK_s                  ), promptSearch defaultXPConfig multiEngine)
