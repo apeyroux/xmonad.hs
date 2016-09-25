@@ -7,6 +7,8 @@ import           XMonad.Actions.Volume
 import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Layout.NoBorders
 import           XMonad.Prompt
 import           XMonad.Prompt.Shell
 import           XMonad.Prompt.Workspace
@@ -99,7 +101,11 @@ main = do
   xmproc <- spawnPipe "xmobar"
   
   xmonad $ defaultConfig {
-  manageHook = manageDocks <+> manageHook defaultConfig,
+  manageHook = manageDocks
+               <+> (isFullscreen --> doFullFloat)
+               <+> (className =? "Vlc" --> doFloat)
+               <+> (className =? "Spotify" --> doFloat)
+               <+> manageHook defaultConfig,
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
@@ -109,7 +115,7 @@ main = do
   keys = \c -> azertyKeys c
                <+> keys defaultConfig c
                <+> myKeys c,
-  layoutHook = avoidStruts  $ myLayout, 
+  layoutHook = smartBorders . avoidStruts  $ myLayout, 
   borderWidth = 1,
   normalBorderColor  = "#44475a",
   focusedBorderColor = "#ff5555",
