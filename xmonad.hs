@@ -105,6 +105,7 @@ main = do
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
                <+> (className =? "Spotify" --> doFloat)
+               <+> (className =? "Spotify" --> doShift "3:spotify")
                <+> manageHook defaultConfig,
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
@@ -119,6 +120,6 @@ main = do
   borderWidth = 1,
   normalBorderColor  = "#44475a",
   focusedBorderColor = "#ff5555",
-  workspaces = ["emacs", "www", "other", "4", "5"],
+  workspaces = ["emacs", "www", "spotify", "other"],
   modMask  = mod4Mask
 }
