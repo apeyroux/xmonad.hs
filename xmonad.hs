@@ -57,7 +57,6 @@ searchEngineMap method = M.fromList $
 
 myLayout = tiled ||| Full
   where
-    
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
      -- The default number of windows in the master pane
@@ -99,11 +98,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 main :: IO()
 main = do
   xmproc <- spawnPipe "xmobar"
-  
   xmonad $ defaultConfig {
   manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
+               <+> (className =? "VirtualBox" --> doFloat)
                <+> (className =? "Spotify" --> doFloat)
                <+> (className =? "Spotify" --> doShift "3:spotify")
                <+> manageHook defaultConfig,
