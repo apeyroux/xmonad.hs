@@ -115,7 +115,7 @@ main = do
   keys = \c -> azertyKeys c
                <+> keys defaultConfig c
                <+> myKeys c,
-  layoutHook = smartBorders . avoidStruts  $ myLayout, 
+  layoutHook = smartBorders . avoidStruts  $ myLayout,
   borderWidth = 1,
   normalBorderColor  = "#44475a",
   focusedBorderColor = "#ff5555",
