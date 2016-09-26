@@ -119,6 +119,6 @@ main = do
   borderWidth = 1,
   normalBorderColor  = "#44475a",
   focusedBorderColor = "#ff5555",
-  workspaces = ["emacs", "www", "spotify", "virtualbox", "other"],
+  workspaces = ["emacs", "www", "spotify", "vbox", "other"],
   modMask  = mod4Mask
 }
