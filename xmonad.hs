@@ -1,3 +1,4 @@
+
 import qualified Data.Map as M
 import           System.IO
 import           XMonad
@@ -16,6 +17,8 @@ import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
+import           XMonad.Hooks.SetWMName
+
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -103,9 +106,15 @@ main = do
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
                <+> (className =? "VirtualBox" --> doFloat)
+               <+> (className =? "evince-previewer" --> doFloat)
+               <+> (className =? "Evince" --> doFloat)
+               <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "Spotify" --> doFloat)
+               <+> (className =? "virt-manager" --> doFloat)
+               <+> (className =? "Gimp" --> doFloat)
                <+> (className =? "Spotify" --> doShift "3:spotify")
                <+> manageHook defaultConfig,
+  startupHook = setWMName "LG3D",
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
