@@ -48,7 +48,10 @@ data XConfig l = XConfig
 --}
 
 term :: String
-term = "terminator"
+term = "gnome-terminal"
+
+browser :: String
+browser = "/run/current-system/sw/bin/google-chrome-stable"
 
 multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images !> (prefixAware google))
 
@@ -74,7 +77,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --   ((modMask, xK_Up                 ), sendMessage (IncqMasterN 1))
   -- , ((modMask, xK_Down               ), sendMessage (IncMasterN (-1)))
     ((modMask .|. shiftMask, xK_m    ), workspacePrompt defaultXPConfig (windows . W.shift))
-  , ((modMask, xK_s                  ), promptSearch defaultXPConfig multiEngine)
+  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
+  , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   -- , ((modMask, xK_Up              ), windows W.focusUp)
   -- , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask, xK_d                  ), shellPrompt defaultXPConfig)
