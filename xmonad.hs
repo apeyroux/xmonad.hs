@@ -53,13 +53,14 @@ term = "gnome-terminal"
 browser :: String
 browser = "/run/current-system/sw/bin/google-chrome-stable"
 
-multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images !> (prefixAware google))
+multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images)
 
-searchEngineMap method = M.fromList $
-       [ ((0, xK_g), method google)
-       , ((0, xK_h), method hoogle)
-       , ((0, xK_w), method wikipedia)
-       ]
+searchList :: [([Char], SearchEngine)]
+searchList = [ ("g", google)
+             , ("w", wikipedia)
+             , ("a", amazon)
+             , ("y", youtube)
+             ]
 
 myLayout = tiled ||| Full
   where
@@ -77,8 +78,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --   ((modMask, xK_Up                 ), sendMessage (IncqMasterN 1))
   -- , ((modMask, xK_Down               ), sendMessage (IncMasterN (-1)))
     ((modMask .|. shiftMask, xK_m    ), workspacePrompt defaultXPConfig (windows . W.shift))
-  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
-  , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   -- , ((modMask, xK_Up              ), windows W.focusUp)
   -- , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask, xK_d                  ), shellPrompt defaultXPConfig)
@@ -91,8 +90,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
   , ((noModMask, xK_F1               ), toggleMute >> return ())
   -- Search commands
-  -- , ((modMask, xK_s               ), submap $ searchEngineMap $ promptSearch defaultXPConfig)
-  -- , ((modMask .|. shiftMask, xK_s ), submap $ searchEngineMap $ selectSearch)
+  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngineg)
+  , ((modMask .|. shiftMask, xK_s    ), selectSearchBrowser browser google)
   ]
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
@@ -100,7 +99,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [((m .|. modMask, key              ), screenWorkspace sc >>= flip whenJust (windows . f))
   | (key, sc) <- zip [xK_z, xK_e, xK_r] [0..]
   , (f, m) <- [(W.view, 0            ), (W.shift, shiftMask)]]
-
 
 main :: IO()
 main = do
