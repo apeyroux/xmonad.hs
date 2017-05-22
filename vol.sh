@@ -2,6 +2,6 @@
 
 vol=$(amixer get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "MM" } else { print $2/10 }}' | head -n 1)
 
-echo "$($HOME/.local/bin/sharpbar $vol)"
+echo "$(sharpbar $vol)"
 
 exit 0
