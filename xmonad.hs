@@ -4,7 +4,7 @@ import           System.IO
 import           XMonad
 import           XMonad.Actions.Search
 import           XMonad.Actions.Submap
-import           XMonad.Actions.Volume
+-- import           XMonad.Actions.Volume
 import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
@@ -51,7 +51,7 @@ term :: String
 term = "gnome-terminal"
 
 browser :: String
-browser = "/run/current-system/sw/bin/google-chrome-stable"
+browser = "/usr/bin/firefox"
 
 multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images)
 
@@ -86,9 +86,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_Right              ), sendMessage Expand)
   , ((noModMask, xK_F12              ), spawn "xbacklight -inc 10")
   , ((noModMask, xK_F11              ), spawn "xbacklight -dec 10")
-  , ((noModMask, xK_F2               ), lowerVolume 3 >> return ())
-  , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
-  , ((noModMask, xK_F1               ), toggleMute >> return ())
+  -- , ((noModMask, xK_F2               ), lowerVolume 3 >> return ())
+  -- , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
+  -- , ((noModMask, xK_F1               ), toggleMute >> return ())
   -- Search commands
   , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
   , ((modMask .|. shiftMask, xK_s    ), selectSearchBrowser browser google)
@@ -120,7 +120,7 @@ main = do
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
-            , ppExtras = [ padL loadAvg, padL battery, padL aumixVolume ]
+            , ppExtras = [ padL loadAvg, padL battery ]
             },
   terminal = term,
   keys = \c -> azertyKeys c
