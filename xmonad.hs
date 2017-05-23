@@ -2,8 +2,8 @@
 import qualified Data.Map as M
 import           System.IO
 import           XMonad
-import           XMonad.Actions.Search
-import           XMonad.Actions.Submap
+import           XMonad.Actions.Search as S
+import           XMonad.Actions.Submap as SM
 -- import           XMonad.Actions.Volume
 import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
@@ -55,12 +55,12 @@ browser = "/usr/bin/firefox"
 
 multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images)
 
-searchList :: [([Char], SearchEngine)]
-searchList = [ ("g", google)
-             , ("w", wikipedia)
-             , ("a", amazon)
-             , ("y", youtube)
-             ]
+searchEngineMap method = M.fromList $
+       [ ((0, xK_g), method S.google)
+       , ((0, xK_m), method S.maps)
+       , ((0, xK_h), method S.hoogle)
+       , ((0, xK_w), method S.wikipedia)
+       ]
 
 myLayout = tiled ||| Full
   where
@@ -81,7 +81,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Up              ), windows W.focusUp)
   -- , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask, xK_d                  ), shellPrompt defaultXPConfig)
-  , ((modMask, xK_x                  ), spawn "xscreensaver-command -lock")
+  , ((modMask, xK_x                  ), spawn "i3lock")
   , ((modMask, xK_Left               ), sendMessage Shrink)
   , ((modMask, xK_Right              ), sendMessage Expand)
   , ((noModMask, xK_F12              ), spawn "xbacklight -inc 10")
@@ -90,7 +90,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
   -- , ((noModMask, xK_F1               ), toggleMute >> return ())
   -- Search commands
-  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
+  -- , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
+  , ((modMask, xK_s), SM.submap $ searchEngineMap $ S.promptSearch defaultXPConfig)
   , ((modMask .|. shiftMask, xK_s    ), selectSearchBrowser browser google)
   ]
   ++
@@ -111,12 +112,11 @@ main = do
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
-               <+> (className =? "Spotify" --> doFloat)
+               <+> (className =? "Spotify" --> doFloat <+> doShift "3:spotify")
+               <+> (className =? "Antidotes" --> doFloat <+> doShift "5:antidotes")
                <+> (className =? "virt-manager" --> doFloat)
-               <+> (className =? "Gimp" --> doFloat)
-               <+> (className =? "Spotify" --> doShift "3:spotify")
                <+> manageHook defaultConfig,
-  startupHook = setWMName "LG3D",
+  -- startupHook = setWMName "LG3D",
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
@@ -130,6 +130,6 @@ main = do
   borderWidth = 1,
   normalBorderColor  = "#44475a",
   focusedBorderColor = "#ff5555",
-  workspaces = ["emacs", "www", "spotify", "vbox", "other"],
+  workspaces = ["emacs", "www", "mail", "vbox", "other"],
   modMask  = mod4Mask
 }

@@ -1,7 +1,7 @@
 with import <nixpkgs> { };
 
 haskell.lib.buildStackProject {
-  name = "xmonad-px";
+  name = "sharpbar";
   ghc = haskell.compiler.ghc802;
   buildInputs = [ stack ];
   isExecutable = true;
