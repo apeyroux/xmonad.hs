@@ -55,13 +55,6 @@ browser = "/run/current-system/sw/bin/google-chrome-stable"
 
 multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images)
 
-searchList :: [([Char], SearchEngine)]
-searchList = [ ("g", google)
-             , ("w", wikipedia)
-             , ("a", amazon)
-             , ("y", youtube)
-             ]
-
 myLayout = tiled ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
@@ -90,7 +83,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
   , ((noModMask, xK_F1               ), toggleMute >> return ())
   -- Search commands
-  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngineg)
+  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
   , ((modMask .|. shiftMask, xK_s    ), selectSearchBrowser browser google)
   ]
   ++
@@ -111,12 +104,14 @@ main = do
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
-               <+> (className =? "Spotify" --> doFloat)
+               <+> (className =? "google-chrome" --> doShift "www")
+               <+> (className =? "Spotify" --> (doFloat <+> doShift "spotify"))
                <+> (className =? "virt-manager" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
-               <+> (className =? "Spotify" --> doShift "3:spotify")
+               <+> (title =? "Authy" --> doFloat)
+               <+> (title =? "Postman" --> doFloat)
                <+> manageHook defaultConfig,
-  startupHook = setWMName "LG3D",
+  -- startupHook = setWMName "LG3D",
   logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
@@ -129,7 +124,7 @@ main = do
   layoutHook = smartBorders . avoidStruts  $ myLayout,
   borderWidth = 1,
   normalBorderColor  = "#44475a",
-  focusedBorderColor = "#ff5555",
+  focusedBorderColor = "#ff79c6",
   workspaces = ["emacs", "www", "spotify", "vbox", "other"],
   modMask  = mod4Mask
 }
