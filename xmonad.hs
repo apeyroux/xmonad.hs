@@ -1,3 +1,4 @@
+-- labo
 
 import qualified Data.Map as M
 import           System.IO
