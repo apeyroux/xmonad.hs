@@ -103,6 +103,7 @@ main = do
                <+> (className =? "VirtualBox" --> doFloat)
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
+               <+> (className =? "Nylas Mail" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "google-chrome" --> doShift "www")
                <+> (className =? "Spotify" --> (doFloat <+> doShift "spotify"))
