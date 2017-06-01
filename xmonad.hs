@@ -1,5 +1,3 @@
--- labo 2
-
 import qualified Data.Map as M
 import           System.IO
 import           XMonad
@@ -19,7 +17,6 @@ import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
 import           XMonad.Hooks.SetWMName
-
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
