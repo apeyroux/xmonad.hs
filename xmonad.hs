@@ -95,8 +95,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 main :: IO()
 main = do
-  xmproc <- spawnPipe "xmobar"
-  xmonad $ defaultConfig {
+  xmonad =<< xmobar defaultConfig {
   manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
@@ -109,20 +108,20 @@ main = do
                <+> (className =? "Spotify" --> (doFloat <+> doShift "spotify"))
                <+> (className =? "virt-manager" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
+               <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
                <+> (title =? "Postman" --> doFloat)
                <+> manageHook defaultConfig,
-  -- startupHook = setWMName "LG3D",
-  logHook = dynamicLogWithPP xmobarPP
-            { ppOutput = hPutStrLn xmproc
-            , ppTitle = xmobarColor "green" "" . shorten 50
-            , ppExtras = [ padL loadAvg, padL battery, padL aumixVolume ]
-            },
+  -- logHook = dynamicLogWithPP xmobarPP
+  --           { ppOutput = hPutStrLn xmproc
+  --           , ppTitle = xmobarColor "green" "" . shorten 50
+  --           , ppExtras = [ padL loadAvg, padL battery, padL aumixVolume ]
+  --           },
   terminal = term,
   keys = \c -> azertyKeys c
                <+> keys defaultConfig c
                <+> myKeys c,
-  layoutHook = smartBorders . avoidStruts  $ myLayout,
+  layoutHook = smartBorders . avoidStruts $ myLayout,
   borderWidth = 1,
   normalBorderColor  = "#44475a",
   focusedBorderColor = "#ff79c6",

@@ -1,11 +1,13 @@
 Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
-        , borderColor = "black"
-        , border = TopB
+--      , borderColor = "black"
+--      , border = TopB
         , bgColor = "#282a36"
         , fgColor = "#f8f8f2"
+	, overrideRedirect = False
         , position = BottomW L 100
-	, persistent = False
-	, allDesktops = True
+--	, persistent = False
+--	, allDesktops = True
+--	, lowerOnStart = False
         , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","-h","#50fa7b","-l","#ff5555","-m","#ffb86c","-n","#8be9fd"] 36000
                         , Run Cpu ["-t","cpu <bar>:<total>%","-L","3","-H","50"
 			, "-h","#ff5555","-l","#50fa7b","-n","#ffb86c"	
@@ -30,4 +32,4 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
         , sepChar = "%"
         , alignSep = "}{"
         , template = "%StdinReader% | vol:%vol% bat:%battery% | %cpu% %memory% | %wlp2s0wi% %wlp2s0%}{%date%"
-        }
+}
