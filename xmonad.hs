@@ -47,7 +47,7 @@ data XConfig l = XConfig
 --}
 
 term :: String
-term = "gnome-terminal"
+term = "terminator"
 
 browser :: String
 browser = "/run/current-system/sw/bin/google-chrome-stable"
@@ -104,6 +104,7 @@ main = do
                <+> (className =? "Nylas Mail" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "google-chrome" --> doShift "www")
+               <+> (className =? "Spotify" --> doFloat)
                <+> (className =? "Spotify" --> (doFloat <+> doShift "spotify"))
                <+> (className =? "virt-manager" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
