@@ -110,8 +110,8 @@ main = do
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
-               <+> (className =? "Spotify" --> doFloat <+> doShift "3:spotify")
-               <+> (className =? "Antidotes" --> doFloat <+> doShift "5:antidotes")
+               -- <+> (className =? "Spotify" --> doFloat <+> doShift "3:spotify")
+               <+> (className =? "Antidotes" --> doFloat)
                <+> (className =? "virt-manager" --> doFloat)
                <+> manageHook defaultConfig,
   -- startupHook = setWMName "LG3D",
