@@ -107,6 +107,7 @@ main = do
                <+> (className =? "Spotify" --> doFloat)
                <+> (className =? "Spotify" --> (doFloat <+> doShift "spotify"))
                <+> (className =? "virt-manager" --> doFloat)
+               <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
                <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
