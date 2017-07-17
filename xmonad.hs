@@ -46,7 +46,7 @@ data XConfig l = XConfig
 --}
 
 term :: String
-term = "gnome-terminal"
+term = "termite"
 
 browser :: String
 browser = "/usr/bin/firefox"
