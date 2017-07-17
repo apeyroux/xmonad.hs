@@ -47,7 +47,7 @@ data XConfig l = XConfig
 --}
 
 term :: String
-term = "terminator"
+term = "termite"
 
 browser :: String
 browser = "/run/current-system/sw/bin/google-chrome-stable"
