@@ -87,7 +87,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xK_F3            ), raiseVolume 3 >> return ())
   , ((noModMask, xK_F1            ), toggleMute >> return ())
   -- Search commands
-  , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
+  , ((modMask, xK_s               ), promptSearchBrowser def browser multi)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   ]
   ++
