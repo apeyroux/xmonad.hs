@@ -8,6 +8,7 @@ import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
 import           XMonad.Prompt
 import           XMonad.Prompt.Shell
@@ -16,7 +17,6 @@ import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
-import           XMonad.Hooks.SetWMName
 
 
 {--
@@ -67,23 +67,23 @@ myLayout = tiled ||| Full
 
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-  --   ((modMask, xK_Up                 ), sendMessage (IncqMasterN 1))
-  -- , ((modMask, xK_Down               ), sendMessage (IncMasterN (-1)))
-    ((modMask .|. shiftMask, xK_m    ), workspacePrompt defaultXPConfig (windows . W.shift))
+  -- ((modMask, xK_Up                ), sendMessage (IncqMasterN 1))
+  -- , ((modMask, xK_Down            ), sendMessage (IncMasterN (-1)))
+  ((modMask .|. shiftMask, xK_m ), workspacePrompt def (windows . W.shift))
   -- , ((modMask, xK_Up              ), windows W.focusUp)
   -- , ((modMask, xK_Down            ), windows W.focusDown)
-  , ((modMask, xK_d                  ), shellPrompt defaultXPConfig)
-  , ((modMask, xK_x                  ), spawn "xscreensaver-command -lock")
-  , ((modMask, xK_Left               ), sendMessage Shrink)
-  , ((modMask, xK_Right              ), sendMessage Expand)
-  , ((noModMask, xK_F12              ), spawn "xbacklight -inc 10")
-  , ((noModMask, xK_F11              ), spawn "xbacklight -dec 10")
-  , ((noModMask, xK_F2               ), lowerVolume 3 >> return ())
-  , ((noModMask, xK_F3               ), raiseVolume 3 >> return ())
-  , ((noModMask, xK_F1               ), toggleMute >> return ())
+  , ((modMask, xK_d               ), shellPrompt def)
+  , ((modMask, xK_x               ), spawn "i3lock")
+  -- , ((modMask, xK_Left            ), sendMessage Shrink)
+  -- , ((modMask, xK_Right           ), sendMessage Expand)
+  , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
+  , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
+  , ((noModMask, xK_F2            ), lowerVolume 3 >> return ())
+  , ((noModMask, xK_F3            ), raiseVolume 3 >> return ())
+  , ((noModMask, xK_F1            ), toggleMute >> return ())
   -- Search commands
-  , ((modMask, xK_s                  ), promptSearchBrowser defaultXPConfig browser multiEngine)
-  , ((modMask .|. shiftMask, xK_s    ), selectSearchBrowser browser google)
+  , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
+  , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   ]
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
@@ -94,10 +94,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 main :: IO()
 main = do
---  xmonad =<< xmobar defaultConfig {
-  xmproc <- spawnPipe "xmobar"
-  xmonad $ defaultConfig {
-  manageHook = manageDocks
+  xmonad =<< xmobar def {
+  -- xmproc <- spawnPipe "xmobar"
+  -- xmonad $ defaultConfig {
+    manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
                <+> (className =? "VirtualBox" --> doFloat)
@@ -112,20 +112,20 @@ main = do
                <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
                <+> (title =? "Postman" --> doFloat)
-               <+> manageHook defaultConfig,
+               <+> manageHook def,
   -- logHook = dynamicLogWithPP xmobarPP
   --           { ppOutput = hPutStrLn xmproc
   --           , ppTitle = xmobarColor "green" "" . shorten 50
   --           , ppExtras = [ padL loadAvg, padL battery, padL aumixVolume ]
   --           },
-  terminal = term,
-  keys = \c -> azertyKeys c
-               <+> keys defaultConfig c
-               <+> myKeys c,
-  layoutHook = smartBorders . avoidStruts $ myLayout,
-  borderWidth = 1,
-  normalBorderColor  = "#44475a",
-  focusedBorderColor = "#ff79c6",
-  workspaces = ["emacs", "www", "spotify", "vbox", "other"],
-  modMask  = mod4Mask
+    terminal = term,
+    keys = \c -> azertyKeys c
+                 <+> keys def c
+                 <+> myKeys c,
+    layoutHook = smartBorders . avoidStruts $ myLayout,
+    borderWidth = 1,
+    normalBorderColor  = "#44475a",
+    focusedBorderColor = "#ff79c6",
+    workspaces = ["emacs", "www", "spotify", "vbox", "other"],
+    modMask  = mod4Mask
 }

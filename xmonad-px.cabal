@@ -8,7 +8,7 @@ version:             0.1.0.0
 -- license:             
 license-file:        LICENSE
 author:              Alexandre Peyroux
-maintainer:          alex@px.io
+maintainer:          alex@xn--wxa.email
 -- copyright:           
 -- category:            
 build-type:          Simple
@@ -19,10 +19,10 @@ executable xmonad-px
   main-is:             xmonad.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base
+  build-depends:       base 
                      , xmonad
-                     , xmonad-contrib 
-                     , xmonad-extras
+                     , xmonad-contrib
+                     , xmonad-extras 
                      , containers
   -- hs-source-dirs:      
   default-language:    Haskell2010

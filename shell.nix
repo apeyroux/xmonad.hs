@@ -5,13 +5,16 @@ with pkgs;
 let
   resolver = haskellPackages.ghc;
   native_libs = [
-      zlib
-      ncurses
-      gcc
+      alsaLib
       gmp
+      ncurses
       pcre
       pkgconfig
-      cabal-install
+      xorg.libX11
+      xorg.libXext
+      xorg.libXft
+      xorg.libXrandr
+      zlib
     ];
 in stdenv.mkDerivation {
   name = "hbattery";
