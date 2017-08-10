@@ -7,7 +7,7 @@ version:             0.1.0.0
 -- description:         
 -- license:             
 license-file:        LICENSE
-author:              Alexandre Px
+author:              Alexandre Peyroux
 maintainer:          alex@px.io
 -- copyright:           
 -- category:            
@@ -19,9 +19,9 @@ executable xmonad-px
   main-is:             xmonad.hs
   -- other-modules:       
   -- other-extensions:    
-  build-depends:       base >=4.8 && <4.9
-                     , xmonad >= 0.12
-                     , xmonad-contrib >= 0.12
+  build-depends:       base
+                     , xmonad
+                     , xmonad-contrib 
                      , xmonad-extras
                      , containers
   -- hs-source-dirs:      
