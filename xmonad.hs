@@ -100,8 +100,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 main :: IO()
 main = do
   xmonad =<< xmobar def {
-  -- xmproc <- spawnPipe "xmobar"
-  -- xmonad $ defaultConfig {
     manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
