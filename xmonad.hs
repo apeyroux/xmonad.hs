@@ -52,12 +52,25 @@ term = "termite"
 browser :: String
 browser = "/run/current-system/sw/bin/google-chrome-stable"
 
-multiEngine = intelligent (wikipedia
-                           !> amazon
-                           !> maps
-                           !> youtube
-                           !> images
-                           !> (prefixAware google))
+amazonfr :: SearchEngine
+amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords="
+
+wikipediafr :: SearchEngine
+wikipediafr = searchEngine "wikifr" "http://fr.wikipedia.org/wiki/Special:Search?go=Go&search="
+
+mapsfr :: SearchEngine
+mapsfr = searchEngine "mapsfr" "http://maps.google.fr/maps?q="
+
+youtubesfr :: SearchEngine
+youtubesfr = searchEngine "yt" "http://www.youtube.fr/results?search_type=search_videos&search_query="
+
+multiEngine :: SearchEngine
+multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikipediafr
+                                                  , amazonfr
+                                                  , mapsfr
+                                                  , youtubesfr
+                                                  , images
+                                                  , (prefixAware google)]
 
 myLayout = tiled ||| Full
   where
@@ -87,7 +100,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((noModMask, xK_F3            ), raiseVolume 3 >> return ())
   , ((noModMask, xK_F1            ), toggleMute >> return ())
   -- Search commands
-  , ((modMask, xK_s               ), promptSearchBrowser def browser multi)
+  , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   ]
   ++
