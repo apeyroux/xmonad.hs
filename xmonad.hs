@@ -52,7 +52,12 @@ term = "termite"
 browser :: String
 browser = "/run/current-system/sw/bin/google-chrome-stable"
 
-multiEngine = intelligent (wikipedia !> amazon !> maps !> youtube !> images)
+multiEngine = intelligent (wikipedia
+                           !> amazon
+                           !> maps
+                           !> youtube
+                           !> images
+                           !> (prefixAware google))
 
 myLayout = tiled ||| Full
   where
@@ -113,11 +118,6 @@ main = do
                <+> (title =? "Authy" --> doFloat)
                <+> (title =? "Postman" --> doFloat)
                <+> manageHook def,
-  -- logHook = dynamicLogWithPP xmobarPP
-  --           { ppOutput = hPutStrLn xmproc
-  --           , ppTitle = xmobarColor "green" "" . shorten 50
-  --           , ppExtras = [ padL loadAvg, padL battery, padL aumixVolume ]
-  --           },
     terminal = term,
     keys = \c -> azertyKeys c
                  <+> keys def c
