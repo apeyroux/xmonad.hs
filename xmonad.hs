@@ -18,7 +18,6 @@ import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
 
-
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
 http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
@@ -99,6 +98,7 @@ main = do
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nylas Mail" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
+               <+> (className =? "Spotify" --> doShift "spotify")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)

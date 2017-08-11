@@ -16,10 +16,10 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
 			, "-h","#ff5555","-l","#50fa7b","-n","#ffb86c"
 			, "-H", "10000"
 			, "-L", "5000"] 10
-			, Run Wireless "wlp2s0" [ "-t", "<fc=#bd93f9><essid></fc> <qualitybar>:<quality>%"
+			, Run Wireless "wlp3s0" [ "-t", "<fc=#bd93f9><essid></fc> <qualitybar>:<quality>%"
 			, "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
 			] 10
-			, Run Network "wlp2s0" 
+			, Run Network "wlp3s0" 
                           [ "-t", "r:<rx> t:<tx>"
 			  , "-S", "True"
 			  , "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
@@ -31,5 +31,5 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% | vol:%vol% bat:%battery% | %cpu% %memory% | %wlp2s0wi% %wlp2s0%}{%date%"
+        , template = "%StdinReader% | vol:%vol% bat:%battery% | %cpu% %memory% | %wlp3s0wi% %wlp3s0%}{%date%"
 }
