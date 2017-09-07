@@ -68,7 +68,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Up              ), windows W.focusUp)
   -- , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask, xK_d               ), shellPrompt def)
-  , ((modMask, xK_x               ), spawn "i3lock")
+  , ((modMask, xK_x               ), spawn "slimlock")
   -- , ((modMask, xK_Left            ), sendMessage Shrink)
   -- , ((modMask, xK_Right           ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
