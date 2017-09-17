@@ -25,7 +25,7 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
 			  , "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
                           ] 10
                         , Run Date "<fc=#f1fa8c>%d/%m/%Y</fc> <fc=#50fa7b>%H:%M:%S</fc>" "date" 10
-			, Run Com "/home/alex/.xmonad/vol.sh" [] "vol" 10
+			, Run Com "sharpbar" [] "vol" 10
 			, Run BatteryP ["BAT0"] ["-t", "<leftbar>% (<timeleft>|<acstatus>)","-h","#50fa7b","-l","#ff5555","-m","#ffb86c","-n","#8be9fd"] 600
                         , Run StdinReader
                         ]
