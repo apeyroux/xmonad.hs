@@ -74,9 +74,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Right           ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
   , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
-  , ((noModMask, xK_F2            ), lowerVolume 3 >> return ())
-  , ((noModMask, xK_F3            ), raiseVolume 3 >> return ())
-  , ((noModMask, xK_F1            ), toggleMute >> return ())
+  -- , ((noModMask, xK_F2            ), lowerVolume 3 >> return ())
+  -- , ((noModMask, xK_F3            ), raiseVolume 3 >> return ())
+  -- , ((noModMask, xK_F1            ), toggleMute >> return ())
   -- Search commands
   , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
