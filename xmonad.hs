@@ -111,7 +111,7 @@ main = do
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                -- <+> (className =? "Spotify" --> doFloat <+> doShift "3:spotify")
-               <+> (className =? "Antidote9.bin" --> doFloat)
+               <+> (className =? "Antidote 9" --> doFloat)
                <+> (className =? "virt-manager" --> doFloat)
                <+> manageHook defaultConfig,
   -- startupHook = setWMName "LG3D",

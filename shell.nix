@@ -1,9 +1,7 @@
-with import <nixpkgs> { };
+with (import <nixpkgs> {});
 
 haskell.lib.buildStackProject {
-  name = "sharpbar";
-  ghc = haskell.compiler.ghc802;
-  buildInputs = [ stack ];
-  isExecutable = true;
-  src = ./.;
+  inherit ghc;
+  name = "xmonadBuildEnv";
+  buildInputs = [ stack haskellPackages.cabal2nix zlib x11 alsaLib ];
 }
