@@ -1,9 +1,9 @@
 import qualified Data.Map as M
 import           System.IO
 import           XMonad
-import           XMonad.Actions.Search
-import           XMonad.Actions.Submap
-import           XMonad.Actions.Volume
+import           XMonad.Actions.Search as S
+import           XMonad.Actions.Submap as SM
+-- import           XMonad.Actions.Volume
 import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
@@ -17,6 +17,7 @@ import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
+import           XMonad.Hooks.SetWMName
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -27,7 +28,7 @@ term :: String
 term = "termite"
 
 browser :: String
-browser = "/run/current-system/sw/bin/google-chrome-stable"
+browser = "/usr/bin/firefox"
 
 amazonfr :: SearchEngine
 amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords="
@@ -68,7 +69,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Up              ), windows W.focusUp)
   -- , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask, xK_d               ), shellPrompt def)
-  , ((modMask, xK_x               ), spawn "slimlock")
+  , ((modMask, xK_x               ), spawn "i3lock")
   -- , ((modMask, xK_Left            ), sendMessage Shrink)
   -- , ((modMask, xK_Right           ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
@@ -103,6 +104,7 @@ main = do
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
                <+> (className =? "virt-manager" --> doFloat)
+               <+> (className =? "Antidote 9" --> doFloat)
                <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
                <+> (title =? "Postman" --> doFloat)

@@ -1,4 +1,4 @@
-resolver: lts-9.0
+resolver: lts-9.8
 
 packages:
 - '.'
@@ -10,6 +10,7 @@ flags: {}
 extra-package-dbs: []
 
 nix:
+  shell-file: shell.nix
   enable: true
   pure: true
   shell-file: shell.nix

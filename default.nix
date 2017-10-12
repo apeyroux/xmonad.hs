@@ -1,11 +1,9 @@
-with import <nixpkgs> {}; {
+with import <nixpkgs> { };
 
-hsEnv = stdenv.mkDerivation {
-  name = "hs";
-  buildInputs = [ pkgs.stack haskellPackages.cabal-install ghc
-                  xorg.libXrandr xorg.libXext xorg.libXpm xorg.libXft pkgconfig];
-  shellHook = ''
-      export PS1="λ \w $ "
-  '';
-  };
+haskell.lib.buildStackProject {
+  name = "xmonad-px";
+  ghc = haskell.compiler.ghc802;
+  buildInputs = [ stack ];
+  isExecutable = true;
+  src = ./.;
 }
