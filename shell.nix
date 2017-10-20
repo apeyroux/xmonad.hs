@@ -6,6 +6,10 @@ haskell.lib.buildStackProject {
   buildInputs = [
     alsaLib
     haskellPackages.cabal2nix
+    haskellPackages.xmobar
+    haskellPackages.xmonad
+    haskellPackages.xmonad-contrib
+    haskellPackages.xmonad-extras
     stack
     x11
     xorg.libXrandr

@@ -12,5 +12,3 @@ extra-package-dbs: []
 nix:
   shell-file: shell.nix
   enable: true
-  pure: true
-  shell-file: shell.nix

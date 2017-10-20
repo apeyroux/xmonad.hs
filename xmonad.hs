@@ -103,6 +103,7 @@ main = do
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
+               <+> (className =? "Pinentry" --> doFloat)
                <+> (className =? "virt-manager" --> doFloat)
                <+> (className =? "Antidote 9" --> doFloat)
                <+> (className =? "pavucontrol" --> doFloat)
