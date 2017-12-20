@@ -115,6 +115,7 @@ main = do
                  <+> keys def c
                  <+> myKeys c,
     layoutHook = smartBorders . avoidStruts $ myLayout,
+    startupHook = setWMName "LG3D",
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#ff79c6",
