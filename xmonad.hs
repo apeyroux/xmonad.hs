@@ -25,10 +25,11 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "termite"
+term = "xfce4-terminal"
+-- term = "termite"
 
 browser :: String
-browser = "/usr/bin/firefox"
+browser = "google-chrome-stable"
 
 amazonfr :: SearchEngine
 amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords="
