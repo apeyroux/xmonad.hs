@@ -34,8 +34,8 @@ browser = "google-chrome-stable"
 amazonfr :: SearchEngine
 amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords="
 
-wikipediafr :: SearchEngine
-wikipediafr = searchEngine "wikifr" "http://fr.wikipedia.org/wiki/Special:Search?go=Go&search="
+wikifr :: SearchEngine
+wikifr = searchEngine "wikifr" "http://fr.wikipedia.org/wiki/Special:Search?go=Go&search="
 
 mapsfr :: SearchEngine
 mapsfr = searchEngine "mapsfr" "http://maps.google.fr/maps?q="
@@ -44,12 +44,12 @@ youtubesfr :: SearchEngine
 youtubesfr = searchEngine "yt" "http://www.youtube.fr/results?search_type=search_videos&search_query="
 
 multiEngine :: SearchEngine
-multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikipediafr
+multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikifr
                                                   , amazonfr
                                                   , mapsfr
                                                   , youtubesfr
                                                   , images
-                                                  , (prefixAware google)]
+                                                  , google]
 
 myLayout = tiled ||| Full
   where
