@@ -37,6 +37,12 @@ amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=
 wikifr :: SearchEngine
 wikifr = searchEngine "wikifr" "http://fr.wikipedia.org/wiki/Special:Search?go=Go&search="
 
+photos :: SearchEngine
+photos = searchEngine "photos" "https://photos.google.com/search/"
+
+diigo :: SearchEngine
+diigo = searchEngine "diigo" "https://www.diigo.com/user/apeyroux?snapshot=yes&query="
+
 mapsfr :: SearchEngine
 mapsfr = searchEngine "mapsfr" "http://maps.google.fr/maps?q="
 
@@ -47,8 +53,10 @@ multiEngine :: SearchEngine
 multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikifr
                                                   , amazonfr
                                                   , mapsfr
+                                                  , diigo
                                                   , youtubesfr
                                                   , images
+                                                  , photos
                                                   , google]
 
 myLayout = tiled ||| Full
