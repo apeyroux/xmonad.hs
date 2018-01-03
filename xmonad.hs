@@ -25,7 +25,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "xfce4-terminal"
+term = "terminator"
 -- term = "termite"
 
 browser :: String
