@@ -8,7 +8,6 @@ import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
-import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
 import           XMonad.Prompt
 import           XMonad.Prompt.Shell
@@ -113,7 +112,8 @@ main = do
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
                <+> (className =? "Pinentry" --> doFloat)
-               <+> (className =? "virt-manager" --> doFloat)
+               <+> (className =? "Virt-manager" --> doFloat)
+               <+> (className =? "sun-awt-X11-XFramePeer" --> doFloat)
                <+> (className =? "Antidote 9" --> doFloat)
                <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
