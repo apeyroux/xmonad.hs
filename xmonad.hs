@@ -24,8 +24,8 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "terminator"
--- term = "termite"
+-- term = "terminator"
+term = "termite"
 
 browser :: String
 browser = "google-chrome-stable"
