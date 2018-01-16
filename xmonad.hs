@@ -8,7 +8,10 @@ import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.Tabbed
 import           XMonad.Prompt
 import           XMonad.Prompt.Shell
 import           XMonad.Prompt.Workspace
@@ -16,7 +19,6 @@ import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (spawnPipe)
-import           XMonad.Hooks.SetWMName
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -58,7 +60,9 @@ multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikifr
                                                   , photos
                                                   , google]
 
-myLayout = tiled ||| Full
+myLayout = tiled
+  ||| simpleTabbed
+  ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -128,6 +132,6 @@ main = do
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#ff79c6",
-    workspaces = ["emacs", "www", "spotify", "vbox", "other"],
+    workspaces = ["emacs", "www", "spotify"] ++ map show [4..10],
     modMask  = mod4Mask
 }
