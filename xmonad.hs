@@ -61,7 +61,6 @@ multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikifr
                                                   , google]
 
 myLayout = tiled
-  ||| simpleTabbed
   ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
@@ -73,6 +72,7 @@ myLayout = tiled
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
 
+myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
   -- ((modMask, xK_Up                ), sendMessage (IncqMasterN 1))
@@ -100,9 +100,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   | (key, sc) <- zip [xK_z, xK_e, xK_r] [0..]
   , (f, m) <- [(W.view, 0            ), (W.shift, shiftMask)]]
 
+initx :: X()
+initx = do
+  setWMName "LG3D"
+  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request"
+
 main :: IO()
-main = do
-  xmonad =<< xmobar def {
+main = xmonad =<< xmobar def {
     manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
@@ -128,7 +132,7 @@ main = do
                  <+> keys def c
                  <+> myKeys c,
     layoutHook = smartBorders . avoidStruts $ myLayout,
-    startupHook = setWMName "LG3D",
+    startupHook = initx,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#ff79c6",
