@@ -1,3 +1,4 @@
+import           Control.Monad
 import qualified Data.Map as M
 import           System.IO
 import           XMonad
@@ -10,7 +11,6 @@ import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.NoBorders
-import           XMonad.Layout.Tabbed
 import           XMonad.Layout.Tabbed
 import           XMonad.Prompt
 import           XMonad.Prompt.Shell
@@ -86,9 +86,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Right           ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
   , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
-  , ((noModMask, xK_F2            ), lowerVolume 3 >> return ())
-  , ((noModMask, xK_F3            ), raiseVolume 3 >> return ())
-  , ((noModMask, xK_F1            ), toggleMute >> return ())
+  , ((noModMask, xK_F2            ), void (lowerVolume 3))
+  , ((noModMask, xK_F3            ), void (raiseVolume 3))
+  , ((noModMask, xK_F1            ), void toggleMute)
   -- Search commands
   , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
