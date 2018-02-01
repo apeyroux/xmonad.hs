@@ -104,6 +104,7 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1"
+  spawn "feh --bg-scale /home/alex/.bg/hs.png"
 
 main :: IO()
 main = xmonad =<< xmobar def {
