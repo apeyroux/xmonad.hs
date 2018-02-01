@@ -18,7 +18,7 @@ import           XMonad.Prompt.Workspace
 import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
-import           XMonad.Util.Run (spawnPipe)
+import           XMonad.Util.Run (safeSpawn)
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -75,15 +75,15 @@ myLayout = tiled
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-  -- ((modMask, xK_Up                ), sendMessage (IncqMasterN 1))
-  -- , ((modMask, xK_Down            ), sendMessage (IncMasterN (-1)))
-  ((modMask .|. shiftMask, xK_m ), workspacePrompt def (windows . W.shift))
-  -- , ((modMask, xK_Up              ), windows W.focusUp)
-  -- , ((modMask, xK_Down            ), windows W.focusDown)
+  -- ((modMask, xK_Up             ), sendMessage (IncqMasterN 1))
+  -- , ((modMask, xK_Down         ), sendMessage (IncMasterN (-1)))
+  ((modMask .|. shiftMask, xK_m   ), workspacePrompt def (windows . W.shift))
+  -- , ((modMask, xK_Up           ), windows W.focusUp)
+  -- , ((modMask, xK_Down         ), windows W.focusDown)
   , ((modMask, xK_d               ), shellPrompt def)
   , ((modMask, xK_x               ), spawn "slimlock")
-  -- , ((modMask, xK_Left            ), sendMessage Shrink)
-  -- , ((modMask, xK_Right           ), sendMessage Expand)
+  -- , ((modMask, xK_Left         ), sendMessage Shrink)
+  -- , ((modMask, xK_Right        ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
   , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
   , ((noModMask, xK_F2            ), void (lowerVolume 3))
@@ -103,8 +103,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 initx :: X()
 initx = do
   setWMName "LG3D"
-  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 1"
+  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
+        \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
+  -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
+  -- spawn "trayer --edge top --align right --height 17 --transparent true --widthtype request --alpha 0 --tint 0x000000"
+  -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 18 --height 22 --transparent true --tint 0x000000 &"
   spawn "feh --bg-scale /home/alex/.bg/hs.png"
+  spawn "nm-applet"
 
 main :: IO()
 main = xmonad =<< xmobar def {
@@ -137,6 +142,6 @@ main = xmonad =<< xmobar def {
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#ff79c6",
-    workspaces = ["emacs", "www", "spotify"] ++ map show [4..10],
+    workspaces = ["emacs", "www", "spotify"] <+> map show [4..10],
     modMask  = mod4Mask
 }
