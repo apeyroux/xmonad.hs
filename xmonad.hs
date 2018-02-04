@@ -108,7 +108,7 @@ initx = do
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
   -- spawn "trayer --edge top --align right --height 17 --transparent true --widthtype request --alpha 0 --tint 0x000000"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 18 --height 22 --transparent true --tint 0x000000 &"
-  spawn "feh --bg-scale /home/alex/.bg/hs.png"
+  spawn "feh --bg-centerx /home/alex/.bg/montagne.jpg"
   spawn "nm-applet"
 
 main :: IO()
