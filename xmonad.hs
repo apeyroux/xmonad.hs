@@ -103,13 +103,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 initx :: X()
 initx = do
   setWMName "LG3D"
-  spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
-        \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
+  spawn "feh --bg-center /home/alex/.bg/HaskellLogo.png"
+  -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
+  --       \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
   -- spawn "trayer --edge top --align right --height 17 --transparent true --widthtype request --alpha 0 --tint 0x000000"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 18 --height 22 --transparent true --tint 0x000000 &"
-  spawn "feh --bg-centerx /home/alex/.bg/montagne.jpg"
-  spawn "nm-applet"
+--  spawn "nm-applet"
 
 main :: IO()
 main = xmonad =<< xmobar def {
@@ -125,6 +125,7 @@ main = xmonad =<< xmobar def {
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
+               <+> (className =? "jetbrains-datagrip" --> doFloat)
                <+> (className =? "Pinentry" --> doFloat)
                <+> (className =? "Virt-manager" --> doFloat)
                <+> (className =? "sun-awt-X11-XFramePeer" --> doFloat)
