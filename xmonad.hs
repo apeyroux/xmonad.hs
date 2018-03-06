@@ -125,6 +125,7 @@ main = xmonad =<< xmobar def {
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
+               <+> (className =? "emacs" --> doShift "emacs")
                <+> (className =? "jetbrains-datagrip" --> doFloat)
                <+> (className =? "Pinentry" --> doFloat)
                <+> (className =? "Virt-manager" --> doFloat)
