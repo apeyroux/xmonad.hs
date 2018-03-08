@@ -1,3 +1,4 @@
+
 import           Control.Monad
 import qualified Data.Map as M
 import           System.IO
@@ -116,7 +117,7 @@ main = xmonad =<< xmobar def {
     manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
-               <+> (className =? "VirtualBox" --> doFloat)
+               <+> (className =? "VirtualBox Manager" --> doFloat)
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nylas Mail" --> doFloat)
