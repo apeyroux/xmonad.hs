@@ -1,4 +1,3 @@
-
 import           Control.Monad
 import qualified Data.Map as M
 import           System.IO
@@ -104,20 +103,20 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 initx :: X()
 initx = do
   setWMName "LG3D"
-  spawn "feh --bg-scale /home/alex/.bg/van.jpg"
+  -- spawn "feh --bg-scale /home/alex/.bg/hs.png"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
   --       \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
   -- spawn "trayer --edge top --align right --height 17 --transparent true --widthtype request --alpha 0 --tint 0x000000"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 18 --height 22 --transparent true --tint 0x000000 &"
---  spawn "nm-applet"
+  --  spawn "nm-applet"
 
 main :: IO()
 main = xmonad =<< xmobar def {
     manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
-               <+> (className =? "VirtualBox Manager" --> doFloat)
+               <+> (className =? "VirtualBox" --> doFloat)
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nylas Mail" --> doFloat)
