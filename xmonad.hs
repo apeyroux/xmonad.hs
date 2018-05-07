@@ -105,6 +105,7 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/nix.png"
+  spawn "dunst"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
   --       \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
