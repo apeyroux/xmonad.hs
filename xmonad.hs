@@ -119,6 +119,7 @@ main = xmonad =<< xmobar def {
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
                <+> (className =? "VirtualBox Manager" --> doFloat)
+               <+> (className =? "VirtualBox Machine" --> doFloat)
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nylas Mail" --> doFloat)
