@@ -10,5 +10,6 @@ flags: {}
 extra-package-dbs: []
 
 nix:
-  shell-file: shell.nix
   enable: true
+  packages:
+    - zlib
