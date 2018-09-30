@@ -1,4 +1,5 @@
 Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+       	-- , position = Static { xpos = 0, ypos = 0, width = 1346, height = 20 },
 --      , borderColor = "black"
 --      , border = TopB
         , bgColor = "#282a36"
@@ -16,20 +17,18 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
 			, "-h","#ff5555","-l","#50fa7b","-n","#ffb86c"
 			, "-H", "10000"
 			, "-L", "5000"] 10
-			, Run Wireless "wlp2s0" [ "-t", "<fc=#bd93f9><essid></fc> <qualitybar>:<quality>%"
-			, "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
-			] 10
-			, Run Network "wlp2s0" 
+			, Run Wireless "wlp2s0" [ "-t", "<fc=#bd93f9><essid></fc> <qualitybar>:<quality>%", "-h", "#50fa7b", "-l", "#ff5555", "-n", "#ffb86c"] 10
+			, Run Volume "default" "Master" [] 10
+			, Run Network "wlp2s0"
                           [ "-t", "r:<rx> t:<tx>"
 			  , "-S", "True"
 			  , "-h","#50fa7b","-l","#ff5555","-n","#ffb86c"
                           ] 10
                         , Run Date "<fc=#f1fa8c>%d/%m/%Y</fc> <fc=#50fa7b>%H:%M:%S</fc>" "date" 10
-			, Run Com "volbar" [] "vol" 10
 			, Run BatteryP ["BAT0"] ["-t", "<leftbar>% (<timeleft>|<acstatus>)","-h","#50fa7b","-l","#ff5555","-m","#ffb86c","-n","#8be9fd"] 600
                         , Run StdinReader
                         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% | vol:%vol% bat:%battery% | %cpu% %memory% | %wlp2s0wi% %wlp2s0%}{%date%"
+        , template = "%StdinReader% | %default:Master% bat:%battery% | %cpu% %memory% }{%wlp2s0wi% %wlp2s0% | %date%"
 }
