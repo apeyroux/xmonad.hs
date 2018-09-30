@@ -31,7 +31,7 @@ term :: String
 term = "kitty"
 
 browser :: String
-browser = "google-chrome-stable"
+browser = "firefox"
 
 amazonfr :: SearchEngine
 amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords="
@@ -87,9 +87,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Right        ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
   , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
-  , ((noModMask, xK_F2            ), void (lowerVolume 3))
-  , ((noModMask, xK_F3            ), void (raiseVolume 3))
-  , ((noModMask, xK_F1            ), void toggleMute)
+  -- , ((noModMask, xK_F2            ), void (lowerVolume 3))
+  -- , ((noModMask, xK_F3            ), void (raiseVolume 3))
+  -- , ((noModMask, xK_F1            ), void toggleMute)
   -- Search commands
   , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
@@ -125,6 +125,7 @@ main = xmonad =<< xmobar def {
                <+> (className =? "Nylas Mail" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "Spotify" --> doShift "spotify")
+               <+> (className =? "firefox" <||> title =? "chrome" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
