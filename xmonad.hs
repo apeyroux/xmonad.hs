@@ -10,6 +10,8 @@ import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.SetWMName
+import           XMonad.Layout.MultiToggle
+import           XMonad.Layout.MultiToggle.Instances
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Tabbed
 import           XMonad.Prompt
@@ -62,7 +64,7 @@ multiEngine = namedEngine "multifr" $ foldr1 (!>) [wikifr
                                                   , google]
 
 myLayout = tiled
-  ||| Full
+  ||| Mirror tiled
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -82,7 +84,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Up           ), windows W.focusUp)
   -- , ((modMask, xK_Down         ), windows W.focusDown)
   , ((modMask, xK_d               ), shellPrompt def)
-  , ((modMask, xK_x               ), spawn "slimlock")
+  , ((modMask, xK_p               ), spawn "rofi -show run")
+  , ((modMask, xK_x               ), spawn "i3lock")
+  , ((modMask, xK_f               ), sendMessage $ Toggle FULL)
+  , ((modMask, xK_x               ), spawn "zeal")
   -- , ((modMask, xK_Left         ), sendMessage Shrink)
   -- , ((modMask, xK_Right        ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
@@ -124,6 +129,7 @@ main = xmonad =<< xmobar def {
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nylas Mail" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
+               <+> (className =? "Zeal" --> doFloat)
                <+> (className =? "Spotify" --> doShift "spotify")
                <+> (className =? "firefox" <||> title =? "chrome" --> doShift "www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
@@ -145,7 +151,7 @@ main = xmonad =<< xmobar def {
     keys = \c -> azertyKeys c
                  <+> keys def c
                  <+> myKeys c,
-    layoutHook = smartBorders . avoidStruts $ myLayout,
+    layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ myLayout,
     startupHook = initx,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
