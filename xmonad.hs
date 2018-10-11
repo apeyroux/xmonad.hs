@@ -105,6 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_Up           ), windows W.focusUp)
   -- , ((modMask, xK_Down         ), windows W.focusDown)
   , ((modMask .|. shiftMask, xK_d ), shellPrompt def)
+  , ((modMask, xK_b               ), sendMessage ToggleStruts)
   , ((modMask, xK_d               ), spawn "rofi -modi drun,ssh,run -show drun")
   , ((modMask, xK_x               ), spawn "i3lock")
   , ((modMask, xK_f               ), sendMessage $ Toggle FULL)
@@ -144,7 +145,7 @@ main = do
   xmobar <- spawnPipe "xmobar"
   xmonad (cfg xmobar)
   where
-    cfg xbar = def {
+    cfg xbar = docks $ def {
       manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
@@ -171,13 +172,14 @@ main = do
                <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
                <+> (title =? "Postman" --> doFloat)
-               <+> manageHook def,
+               <+> manageHook def
+               <+> manageDocks,
     terminal = term,
     keys = \c -> azertyKeys c
                  <+> keys def c
                  <+> myKeys c,
     layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ myLayout,
-    startupHook = initx,
+    startupHook = initx <+> docksStartupHook <+> startupHook def,
     logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
