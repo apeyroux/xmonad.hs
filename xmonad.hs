@@ -30,7 +30,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 term :: String
 -- term = "terminator"
 -- term = "termite"
-term = "kitty"
+term = "st"
 
 browser :: String
 browser = "firefox"

@@ -6,7 +6,8 @@ Config { font = "xft:Noto Sans:pixelsize=13,M+ 1c:pixelsize=13"
         , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
         , bgColor = "#282a36"
         , fgColor = "#f8f8f2"
-	-- , overrideRedirect = False
+	, allDesktops = True
+	, overrideRedirect = True
         , position = Bottom
         , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","-h","#50fa7b","-l","#ff5555","-m","#ffb86c","-n","#8be9fd"] 36000
                      , Run Cpu ["-t"," <ipat> <total>%","-L","3","-H","50", "-h","#ff5555","-l","#50fa7b","-n","#ffb86c"] 10
