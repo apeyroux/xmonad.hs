@@ -20,7 +20,7 @@ import           XMonad.Prompt.Workspace
 import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
-import           XMonad.Util.Run (safeSpawn)
+import           XMonad.Util.Run (safeSpawn, spawnPipe)
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -75,6 +75,27 @@ myLayout = tiled
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
 
+myLogHook proc = dynamicLogWithPP $ xmobarPP
+  { ppOutput  = hPutStrLn proc
+  , ppCurrent = currentStyle
+  , ppVisible = visibleStyle
+  , ppTitle   = titleStyle
+  , ppSep = " <fn=1>\xf101</fn> "
+  -- , ppLayout  = (\layout -> case layout of
+  --     "Tall"        -> "[|]"
+  --     "Mirror Tall" -> "[-]"
+  --     "ThreeCol"    -> "[||]"
+  --     "Tabbed"      -> "[_]"
+  --     "Gimp"        -> "[&]"
+  --     )
+  }
+  where
+    currentStyle = xmobarColor "#fff" "" . wrap "<fc=#e74c3c><fn=1>\xf105</fn></fc> " " <fc=#e74c3c><fn=1>\xf104</fn></fc>"
+    visibleStyle = wrap "(" ")"
+    titleStyle   = xmobarColor "#fff" "" . shorten 200 . filterCurly
+    filterCurly  = filter (not . isCurly)
+    isCurly x = x == '{' || x == '}'
+
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
@@ -87,7 +108,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_d               ), spawn "rofi -modi drun,ssh,run -show drun")
   , ((modMask, xK_x               ), spawn "i3lock")
   , ((modMask, xK_f               ), sendMessage $ Toggle FULL)
-  , ((modMask, xK_x               ), spawn "zeal")
+  -- , ((modMask, xK_x               ), spawn "zeal")
   -- , ((modMask, xK_Left         ), sendMessage Shrink)
   -- , ((modMask, xK_Right        ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
@@ -110,7 +131,7 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/nix.png"
-  spawn "dunst"
+  -- spawn "dunst"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
   --       \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
   -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
@@ -119,8 +140,12 @@ initx = do
   --  spawn "nm-applet"
 
 main :: IO()
-main = xmonad =<< xmobar def {
-    manageHook = manageDocks
+main = do
+  xmobar <- spawnPipe "xmobar"
+  xmonad (cfg xmobar)
+  where
+    cfg xbar = def {
+      manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
                <+> (className =? "VirtualBox Manager" --> doFloat)
@@ -153,9 +178,12 @@ main = xmonad =<< xmobar def {
                  <+> myKeys c,
     layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ myLayout,
     startupHook = initx,
+    logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#ff79c6",
-    workspaces = ["emacs", "www", "spotify"] <+> map show [4..10],
+    workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
+                  "<fn=1><fc=#f5b041>\xf269</fc></fn>",
+                  "<fn=1><fc=#27ae60>\xf1bc</fc></fn>"] <+> map show [4..10],
     modMask  = mod4Mask
-}
+    }
