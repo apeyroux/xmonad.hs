@@ -178,12 +178,12 @@ main = do
     keys = \c -> azertyKeys c
                  <+> keys def c
                  <+> myKeys c,
-    layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) $ myLayout,
+    layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) myLayout,
     startupHook = initx <+> docksStartupHook <+> startupHook def,
     logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
-    focusedBorderColor = "#ff79c6",
+    focusedBorderColor = "#f4d03f",
     workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
                   "<fn=1><fc=#f5b041>\xf269</fc></fn>",
                   "<fn=1><fc=#27ae60>\xf1bc</fc></fn>"] <+> map show [4..10],
