@@ -39,8 +39,8 @@ Config { font = "xft:Noto Sans:pixelsize=13,M+ 1c:pixelsize=13"
         	       	   "--template"			, "<acstatus>",
         	       	   "--Low"			, "10",       -- units: %
         	       	   "--High"			, "50",       -- units: %
-			   "-l"				, "#fad7a0",
-			   "-n"				, "#ec7063",
+			   "-l"				, "#ec7063",
+			   "-n"				, "#fad7a0",
 			   "-h"				, "#abebc6",
         	       	   "--"				, -- battery specific options
         	       	   -- discharging status
