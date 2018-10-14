@@ -28,8 +28,6 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
--- term = "terminator"
--- term = "termite"
 term = "st"
 
 browser :: String
@@ -99,25 +97,19 @@ myLogHook proc = dynamicLogWithPP $ xmobarPP
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
-  -- ((modMask, xK_Up             ), sendMessage (IncqMasterN 1))
-  -- , ((modMask, xK_Down         ), sendMessage (IncMasterN (-1)))
-  ((modMask .|. shiftMask, xK_m   ), workspacePrompt def (windows . W.shift))
-  -- , ((modMask, xK_Up           ), windows W.focusUp)
-  -- , ((modMask, xK_Down         ), windows W.focusDown)
+    ((modMask .|. shiftMask, xK_m ), workspacePrompt def (windows . W.shift))
+  , ((modMask, xK_Up              ), windows W.focusUp)
+  , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask .|. shiftMask, xK_d ), shellPrompt def)
   , ((modMask, xK_b               ), sendMessage ToggleStruts)
   , ((modMask, xK_d               ), spawn "rofi -modi drun,ssh,run -show drun")
   , ((modMask, xK_x               ), spawn "i3lock")
   , ((modMask, xK_f               ), sendMessage $ Toggle FULL)
-  -- , ((modMask, xK_x               ), spawn "zeal")
-  -- , ((modMask, xK_Left         ), sendMessage Shrink)
-  -- , ((modMask, xK_Right        ), sendMessage Expand)
+  -- , ((modMask, xK_x            ), spawn "zeal")
+  , ((modMask, xK_Left            ), sendMessage Shrink)
+  , ((modMask, xK_Right           ), sendMessage Expand)
   , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
   , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
-  -- , ((noModMask, xK_F2            ), void (lowerVolume 3))
-  -- , ((noModMask, xK_F3            ), void (raiseVolume 3))
-  -- , ((noModMask, xK_F1            ), void toggleMute)
-  -- Search commands
   , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   ]
@@ -132,13 +124,6 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/nix.png"
-  -- spawn "dunst"
-  -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut false \
-  --       \ --expand true --height 17 --transparent true --alpha 0 --tint 0x000000 --widthtype request --monitor 0"
-  -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --tint 0x191970 --height"
-  -- spawn "trayer --edge top --align right --height 17 --transparent true --widthtype request --alpha 0 --tint 0x000000"
-  -- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 18 --height 22 --transparent true --tint 0x000000 &"
-  --  spawn "nm-applet"
 
 main :: IO()
 main = do
