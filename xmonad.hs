@@ -186,6 +186,7 @@ main = do
     focusedBorderColor = "#f4d03f",
     workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
                   "<fn=1><fc=#f5b041>\xf269</fc></fn>",
-                  "<fn=1><fc=#27ae60>\xf1bc</fc></fn>"] <+> map show [4..10],
+                  "<fn=1><fc=#27ae60>\xf1bc</fc></fn>",
+                  "<fn=1><fc=#5dade2>\xf121</fc></fn>"] <+> map show [5..10],
     modMask  = mod4Mask
     }

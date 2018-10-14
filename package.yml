@@ -1,0 +1,7 @@
+name: pxmonad
+
+dependencies:
+  - base
+  - xmonad-contrib
+  - xmonad-extras
+  - containers
