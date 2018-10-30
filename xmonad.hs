@@ -123,7 +123,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 initx :: X()
 initx = do
   setWMName "LG3D"
-  spawn "feh --bg-scale /home/alex/.bg/nix.png"
+  spawn "feh --bg-scale /home/alex/.bg/bg.png"
 
 main :: IO()
 main = do
