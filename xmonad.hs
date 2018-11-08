@@ -28,8 +28,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "termite"
--- term = "st"
+term = "st"
 
 browser :: String
 browser = "firefox"
