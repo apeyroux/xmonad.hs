@@ -28,7 +28,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "st"
+term = "alacritty"
 
 browser :: String
 browser = "firefox"
