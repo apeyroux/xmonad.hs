@@ -102,7 +102,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask .|. shiftMask, xK_d ), shellPrompt def)
   , ((modMask, xK_b               ), sendMessage ToggleStruts)
-  , ((modMask, xK_d               ), spawn "rofi -modi drun,ssh,run -show drun")
+  , ((modMask, xK_d               ), shellPrompt def)
   , ((modMask, xK_x               ), spawn "i3lock")
   , ((modMask, xK_f               ), sendMessage $ Toggle FULL)
   -- , ((modMask, xK_x            ), spawn "zeal")
@@ -123,7 +123,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 initx :: X()
 initx = do
   setWMName "LG3D"
-  spawn "feh --bg-scale /home/alex/.bg/bg.png"
+  spawn "feh --bg-scale /home/alex/.bg/bg.jpg"
 
 main :: IO()
 main = do
