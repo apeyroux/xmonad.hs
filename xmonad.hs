@@ -28,7 +28,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "alacritty"
+term = "termite"
 
 browser :: String
 browser = "firefox"
@@ -98,6 +98,9 @@ myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [
     ((modMask .|. shiftMask, xK_m ), workspacePrompt def (windows . W.shift))
+  , ((noModMask, xK_F1            ), toggleMute >> return ())
+  , ((noModMask, xK_F2            ), lowerVolume 5 >> return ())
+  , ((noModMask, xK_F3            ), raiseVolume 5 >> return ())
   , ((modMask, xK_Up              ), windows W.focusUp)
   , ((modMask, xK_Down            ), windows W.focusDown)
   , ((modMask .|. shiftMask, xK_d ), shellPrompt def)
@@ -108,8 +111,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((modMask, xK_x            ), spawn "zeal")
   , ((modMask, xK_Left            ), sendMessage Shrink)
   , ((modMask, xK_Right           ), sendMessage Expand)
-  , ((noModMask, xK_F12           ), spawn "xbacklight -inc 10")
-  , ((noModMask, xK_F11           ), spawn "xbacklight -dec 10")
+  , ((noModMask, xK_F12           ), spawn "light -S 100")
+  , ((noModMask, xK_F11           ), spawn "xbacklight -dec +5")
   , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   ]
