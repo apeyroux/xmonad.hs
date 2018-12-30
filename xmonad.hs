@@ -28,10 +28,14 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
+<<<<<<< HEAD
 term = "termite"
+=======
+term = "st"
+>>>>>>> sound
 
 browser :: String
-browser = "firefox"
+browser = "google-chrome"
 
 amazonfr :: SearchEngine
 amazonfr = searchEngine "amazonfr" "http://www.amazon.fr/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords="
@@ -95,7 +99,7 @@ myLogHook proc = dynamicLogWithPP $ xmobarPP
     isCurly x = x == '{' || x == '}'
 
 myKeys :: XConfig t -> M.Map (KeyMask, KeySym) (X ())
-myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   [
     ((modMask .|. shiftMask, xK_m ), workspacePrompt def (windows . W.shift))
   , ((noModMask, xK_F1            ), toggleMute >> return ())
@@ -109,10 +113,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_x               ), spawn "i3lock")
   , ((modMask, xK_f               ), sendMessage $ Toggle FULL)
   -- , ((modMask, xK_x            ), spawn "zeal")
+  , ((noModMask, xK_F2            ), void (lowerVolumeChannels ["PulseAudio", "Master"] 3))
+  , ((noModMask, xK_F3            ), void (raiseVolumeChannels ["PulseAudio", "Master"] 3))
+  , ((noModMask, xK_F1            ), void (toggleMuteChannels ["PulseAudio", "Master"]))
   , ((modMask, xK_Left            ), sendMessage Shrink)
   , ((modMask, xK_Right           ), sendMessage Expand)
-  , ((noModMask, xK_F12           ), spawn "light -S 100")
-  , ((noModMask, xK_F11           ), spawn "xbacklight -dec +5")
+  , ((noModMask, xK_F12           ), spawn "xbacklight -inc 5")
+  , ((noModMask, xK_F11           ), spawn "xbacklight -dec 5")
   , ((modMask, xK_s               ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s ), selectSearchBrowser browser google)
   ]
