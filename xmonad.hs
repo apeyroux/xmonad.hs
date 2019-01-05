@@ -28,11 +28,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-<<<<<<< HEAD
-term = "termite"
-=======
 term = "st"
->>>>>>> sound
 
 browser :: String
 browser = "google-chrome"
@@ -117,8 +113,9 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_Right             ), sendMessage Expand)
   , ((noModMask, xK_F12             ), spawn "xbacklight -inc 5")
   , ((noModMask, xK_F11             ), spawn "xbacklight -dec 5")
-  , ((modMask .|. controlMask, xK_h ), spawn "xrandr --output HDMI1 --auto --output eDP1 --off")
-  , ((modMask .|. shiftMask, xK_h   ), spawn "xrandr --output eDP1 --auto --output HDMI1 --off")
+  -- , ((modMask .|. controlMask, xK_h ), spawn "xrandr --output HDMI1 --auto --output eDP1 --off")
+  -- , ((modMask .|. shiftMask, xK_h   ), spawn "xrandr --output eDP1 --auto --output HDMI1 --off")
+  , ((modMask .|. shiftMask, xK_h   ), spawn "hsdmi")
   , ((modMask, xK_s                 ), promptSearchBrowser def browser multiEngine)
   , ((modMask .|. shiftMask, xK_s   ), selectSearchBrowser browser google)
   ]
@@ -148,6 +145,8 @@ main = do
                <+> (className =? "evince-previewer" --> doFloat)
                <+> (className =? "Evince" --> doFloat)
                <+> (className =? "Nylas Mail" --> doFloat)
+               <+> (className =? "file-roller" --> doFloat)
+               <+> (className =? "File-roller" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "Zeal" --> doFloat)
                <+> (className =? "Spotify" --> doShift "spotify")
