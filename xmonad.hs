@@ -164,6 +164,7 @@ main = do
                <+> (className =? "Yubioath-gui" --> doFloat)
                <+> (className =? "yubioath-gui" --> doFloat)
                <+> (className =? "Virt-manager" --> doFloat)
+               <+> (className =? "VirtualBox Machine" --> doFloat)
                <+> (className =? "sun-awt-X11-XFramePeer" --> doFloat)
                <+> (className =? "Antidote 9" --> doFloat)
                <+> (className =? "pavucontrol" --> doFloat)
