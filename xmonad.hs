@@ -28,7 +28,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "st"
+term = "termite"
 
 browser :: String
 browser = "google-chrome"
@@ -149,7 +149,10 @@ main = do
                <+> (className =? "File-roller" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "Zeal" --> doFloat)
+               <+> (className =? "yubioath-desktop" --> doFloat)
+               <+> (className =? "Tresorit" --> doFloat)
                <+> (className =? "gnome-calendar" --> doFloat)
+               <+> (className =? "vlc" --> doFloat)
                <+> (className =? "Spotify" --> doShift "spotify")
                <+> (className =? "firefox" <||> title =? "chrome" --> doShift "www")
                <+> (className =? "google-chrome-stable" <||> title =? "google-chrome-stable" --> doShift "www")
