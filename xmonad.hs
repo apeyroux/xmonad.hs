@@ -28,7 +28,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "st"
+term = "termite"
 
 browser :: String
 browser = "google-chrome"
@@ -151,7 +151,9 @@ main = do
                <+> (className =? "File-roller" --> doFloat)
                <+> (className =? "Nautilus" --> doFloat)
                <+> (className =? "Zeal" --> doFloat)
+               <+> (className =? "Tresorit" --> doFloat)
                <+> (className =? "gnome-calendar" --> doFloat)
+               <+> (className =? "vlc" --> doFloat)
                <+> (className =? "Spotify" --> doShift "spotify")
                <+> (className =? "firefox" <||> title =? "chrome" --> doShift "www")
                <+> (className =? "google-chrome-stable" <||> title =? "google-chrome-stable" --> doShift "www")
@@ -165,6 +167,8 @@ main = do
                <+> (className =? "Pinentry" --> doFloat)
                <+> (className =? "Yubioath-gui" --> doFloat)
                <+> (className =? "yubioath-gui" --> doFloat)
+               <+> (className =? "yubioath-desktop" --> doFloat)
+               <+> (className =? "Yubico Authenticator" --> doFloat)
                <+> (className =? "Virt-manager" --> doFloat)
                <+> (className =? "sun-awt-X11-XFramePeer" --> doFloat)
                <+> (className =? "Antidote 9" --> doFloat)
@@ -182,7 +186,7 @@ main = do
     logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
-    focusedBorderColor = "#f4d03f",
+    focusedBorderColor = "#8E44AD",
     workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
                   "<fn=1><fc=#f5b041>\xf269</fc></fn>",
                   "<fn=1><fc=#27ae60>\xf1bc</fc></fn>",
