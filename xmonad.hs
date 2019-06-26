@@ -1,5 +1,6 @@
 import           Control.Monad
 import qualified Data.Map as M
+import           Graphics.X11.ExtraTypes.XF86
 import           System.IO
 import           XMonad
 import           XMonad.Actions.Search as S
@@ -107,13 +108,13 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_x                 ), spawn "slimlock")
   , ((modMask, xK_f                 ), sendMessage $ Toggle FULL)
   -- , ((modMask, xK_x              ), spawn "zeal")
-  , ((noModMask, xK_F2              ), void (lowerVolumeChannels ["PulseAudio", "Master"] 3))
-  , ((noModMask, xK_F3              ), void (raiseVolumeChannels ["PulseAudio", "Master"] 3))
-  , ((noModMask, xK_F1              ), void (toggleMuteChannels ["PulseAudio", "Master"]))
+  , ((noModMask, xF86XK_AudioLowerVolume), void (lowerVolumeChannels ["PulseAudio", "Master"] 3))
+  , ((noModMask, xF86XK_AudioRaiseVolume), void (raiseVolumeChannels ["PulseAudio", "Master"] 3))
+  , ((noModMask, xF86XK_AudioMute), void (toggleMuteChannels ["PulseAudio", "Master"]))
   , ((modMask, xK_Left              ), sendMessage Shrink)
   , ((modMask, xK_Right             ), sendMessage Expand)
-  , ((noModMask, xK_F12             ), spawn "hbrightness -m eDP-1 -a Up")
-  , ((noModMask, xK_F11             ), spawn "hbrightness -m eDP-1 -a Down")
+  , ((noModMask, xF86XK_MonBrightnessUp             ), spawn "hbrightness -m eDP-1 -a Up")
+  , ((noModMask, xF86XK_MonBrightnessDown             ), spawn "hbrightness -m eDP-1 -a Down")  
   -- , ((modMask .|. controlMask, xK_h ), spawn "xrandr --output HDMI1 --auto --output eDP1 --off")
   -- , ((modMask .|. shiftMask, xK_h   ), spawn "xrandr --output eDP1 --auto --output HDMI1 --off")
   , ((modMask .|. shiftMask, xK_h   ), spawn "hsdmi")
@@ -150,7 +151,7 @@ main = do
                <+> (className =? "Nylas Mail" --> doFloat)
                <+> (className =? "file-roller" --> doFloat)
                <+> (className =? "File-roller" --> doFloat)
-               <+> (className =? "Nautilus" --> doFloat)
+               <+> (className =? "Nautilus" --> doCenterFloat)
                <+> (className =? "Zeal" --> doFloat)
                <+> (className =? "Tresorit" --> doFloat)
                <+> (className =? "gnome-calendar" --> doFloat)
@@ -175,8 +176,10 @@ main = do
                <+> (className =? "Antidote 9" --> doFloat)
                <+> (className =? "pavucontrol" --> doFloat)
                <+> (title =? "Authy" --> doFloat)
+               <+> (className =? "stalonetray" --> doIgnore)
                <+> (title =? "Postman" --> doFloat)
                <+> manageHook def
+               <+> composeOne [isFullscreen -?> doFullFloat ]
                <+> manageDocks,
     terminal = term,
     keys = \c -> azertyKeys c
