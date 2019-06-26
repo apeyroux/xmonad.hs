@@ -7,6 +7,7 @@ import           XMonad.Actions.Submap as SM
 import           XMonad.Actions.Volume
 import           XMonad.Config.Azerty
 import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Hooks.ManageHelpers
 import           XMonad.Hooks.SetWMName
@@ -28,7 +29,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "alacritty"
+term = "termite"
 
 browser :: String
 browser = "google-chrome"
@@ -134,7 +135,7 @@ initx = do
 main :: IO()
 main = do
   xmobar <- spawnPipe "xmobar"
-  xmonad (cfg xmobar)
+  xmonad $ ewmh (cfg xmobar)
   where
     cfg xbar = docks $ def {
       manageHook = manageDocks
@@ -191,5 +192,6 @@ main = do
                   "<fn=1><fc=#f5b041>\xf269</fc></fn>",
                   "<fn=1><fc=#27ae60>\xf1bc</fc></fn>",
                   "<fn=1><fc=#5dade2>\xf121</fc></fn>"] <+> map show [5..10],
-    modMask  = mod4Mask
+    handleEventHook = fullscreenEventHook,
+    modMask = mod4Mask
     }
