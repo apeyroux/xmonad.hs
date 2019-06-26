@@ -17,6 +17,7 @@ import           XMonad.Layout.MultiToggle.Instances
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Tabbed
 import           XMonad.Prompt
+import XMonad.Util.Spotify
 import           XMonad.Prompt.Shell
 import           XMonad.Prompt.Workspace
 import qualified XMonad.StackSet as W
@@ -108,6 +109,21 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_x                 ), spawn "slimlock")
   , ((modMask, xK_f                 ), sendMessage $ Toggle FULL)
   -- , ((modMask, xK_x              ), spawn "zeal")
+  , ((0, xF86XK_AudioPlay ),
+     safeSpawn "dbus-send" ["--print-reply",
+                            "--dest=org.mpris.MediaPlayer2.spotify",
+                            "/org/mpris/MediaPlayer2",
+                            "org.mpris.MediaPlayer2.Player.PlayPause"])
+  , ((0, xF86XK_AudioNext ),
+     safeSpawn "dbus-send" ["--print-reply",
+                            "--dest=org.mpris.MediaPlayer2.spotify",
+                            "/org/mpris/MediaPlayer2",
+                            "org.mpris.MediaPlayer2.Player.Next"])
+  , ((0, xF86XK_AudioPrev ),
+     safeSpawn "dbus-send" ["--print-reply",
+                            "--dest=org.mpris.MediaPlayer2.spotify",
+                            "/org/mpris/MediaPlayer2",
+                            "org.mpris.MediaPlayer2.Player.Previous"])
   , ((noModMask, xF86XK_AudioLowerVolume), void (lowerVolumeChannels ["PulseAudio", "Master"] 3))
   , ((noModMask, xF86XK_AudioRaiseVolume), void (raiseVolumeChannels ["PulseAudio", "Master"] 3))
   , ((noModMask, xF86XK_AudioMute), void (toggleMuteChannels ["PulseAudio", "Master"]))
@@ -133,12 +149,13 @@ initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/bg.jpg"
   spawn "stalonetray"
+  spawn "dunst"
   spawn "udiskie -t -f nautilus"
   spawn "nm-applet"
   spawn "xfce4-power-manager"
   spawn "volumeicon"
   spawn "xsetroot -solid '#282a36'"
-  spwan "insync start"
+  spawn "insync start"
   spawn "~/.local/tresorit/tresorit --hidden"
 
 main :: IO()
@@ -164,10 +181,10 @@ main = do
                <+> (className =? "Tresorit" --> doFloat)
                <+> (className =? "gnome-calendar" --> doFloat)
                <+> (className =? "vlc" --> doFloat)
-               <+> (className =? "Spotify" --> doShift "spotify")
-               <+> (className =? "firefox" <||> title =? "chrome" --> doShift "www")
-               <+> (className =? "google-chrome-stable" <||> title =? "google-chrome-stable" --> doShift "www")
-               <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "www")
+               <+> (className =? "spotify" --> doShift "3")
+               <+> (className =? "firefox" <||> title =? "chrome" --> doShift "2:www")
+               <+> (className =? "google-chrome-stable" <||> title =? "google-chrome-stable" --> doShift "2:www")
+               <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "2:www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
                <+> (className =? ".Desktop-Bridge-wrapped" --> doFloat) -- protonmail bridge
