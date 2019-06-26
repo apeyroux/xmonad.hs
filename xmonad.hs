@@ -135,13 +135,16 @@ initx = do
   spawn "stalonetray"
   spawn "udiskie -t -f nautilus"
   spawn "nm-applet"
+  spawn "xfce4-power-manager"
+  spawn "volumeicon"
   spawn "xsetroot -solid '#282a36'"
+  spwan "insync start"
   spawn "~/.local/tresorit/tresorit --hidden"
 
 main :: IO()
 main = do
   xmobar <- spawnPipe "xmobar"
-  xmonad $ ewmh (cfg xmobar)
+  xmonad $ ewmh $ docks $ cfg xmobar
   where
     cfg xbar = docks $ def {
       manageHook = manageDocks
