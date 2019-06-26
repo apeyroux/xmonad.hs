@@ -132,6 +132,11 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/bg.jpg"
+  spawn "stalonetray"
+  spawn "udiskie -t -f nautilus"
+  spawn "nm-applet"
+  spawn "xsetroot -solid '#282a36'"
+  spawn "~/.local/tresorit/tresorit --hidden"
 
 main :: IO()
 main = do
