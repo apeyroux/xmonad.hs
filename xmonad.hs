@@ -2,6 +2,7 @@ import           Control.Monad
 import qualified Data.Map as M
 import           Graphics.X11.ExtraTypes.XF86
 import           System.IO
+import           System.Taffybar.Support.PagerHints (pagerHints)
 import           XMonad
 import           XMonad.Actions.Search as S
 import           XMonad.Actions.Submap as SM
@@ -17,13 +18,13 @@ import           XMonad.Layout.MultiToggle.Instances
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.Tabbed
 import           XMonad.Prompt
-import XMonad.Util.Spotify
 import           XMonad.Prompt.Shell
 import           XMonad.Prompt.Workspace
 import qualified XMonad.StackSet as W
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (safeSpawn, spawnPipe)
+import           XMonad.Util.Spotify
 
 {--
 http://xmonad.org/xmonad-docs/xmonad/XMonad-Core.html
@@ -105,6 +106,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_Down              ), windows W.focusDown)
   , ((modMask .|. shiftMask, xK_d   ), shellPrompt def)
   , ((modMask, xK_b                 ), sendMessage ToggleStruts)
+  , ((modMask, xK_q                 ), spawn "pkill pasystray; pkill stalonetray; pkill udiskie; pkill volumeicon; pkill xfce4-power-man; pkill nm-applet; xmonad --recompile; xmonad --restart")
   , ((modMask, xK_d                 ), shellPrompt def)
   , ((modMask, xK_x                 ), spawn "slimlock")
   , ((modMask, xK_f                 ), sendMessage $ Toggle FULL)
@@ -148,22 +150,22 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/bg.jpg"
-  spawn "stalonetray"
+  spawn "xembedsniproxy"
+  spawn "status-notifier-item-static"
+  spawn "status-notifier-watcher"
+  spawn "pasystray"
+  spawn "taffybar"
   spawn "dunst"
-  spawn "udiskie -t -f nautilus"
-  spawn "nm-applet"
-  spawn "xfce4-power-manager"
-  spawn "volumeicon"
+  spawn "udiskie --appindicator -t  -f nautilus"
+  spawn "nm-applet --sm-disable --indicator"
   spawn "xsetroot -solid '#282a36'"
-  spawn "insync start"
-  spawn "~/.local/tresorit/tresorit --hidden"
 
 main :: IO()
 main = do
   xmobar <- spawnPipe "xmobar"
-  xmonad $ ewmh $ docks $ cfg xmobar
+  xmonad $ ewmh $ docks $ pagerHints cfg 
   where
-    cfg xbar = docks $ def {
+    cfg = docks $ def {
       manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
@@ -187,8 +189,8 @@ main = do
                <+> (stringProperty "WM_WINDOW_ROLE" =? "browser" --> doShift "2:www")
                <+> (stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doFloat)
                <+> (className =? "Gimp" --> doFloat)
-               <+> (className =? ".Desktop-Bridge-wrapped" --> doFloat) -- protonmail bridge
-               <+> (className =? "ProtonMail Bridge" --> doFloat) -- protonmail bridge
+               <+> (className =? ".Desktop-Bridge-wrapped" --> doCenterFloat) -- protonmail bridge
+               <+> (className =? "ProtonMail Bridge" --> doCenterFloat) -- protonmail bridge
                <+> (className =? "emacs" --> doShift "emacs")
                <+> (className =? "jetbrains-datagrip" --> doFloat)
                <+> (className =? "Pinentry" --> doFloat)
@@ -199,7 +201,7 @@ main = do
                <+> (className =? "Virt-manager" --> doFloat)
                <+> (className =? "sun-awt-X11-XFramePeer" --> doFloat)
                <+> (className =? "Antidote 9" --> doFloat)
-               <+> (className =? "pavucontrol" --> doFloat)
+               <+> (className =? "Pavucontrol" --> doCenterFloat)
                <+> (title =? "Authy" --> doFloat)
                <+> (className =? "stalonetray" --> doIgnore)
                <+> (title =? "Postman" --> doFloat)
@@ -212,14 +214,14 @@ main = do
                  <+> myKeys c,
     layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) myLayout,
     startupHook = initx <+> docksStartupHook <+> startupHook def,
-    logHook = myLogHook xbar,
+    -- logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#8E44AD",
-    workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
-                  "<fn=1><fc=#f5b041>\xf269</fc></fn>",
-                  "<fn=1><fc=#27ae60>\xf1bc</fc></fn>",
-                  "<fn=1><fc=#5dade2>\xf121</fc></fn>"] <+> map show [5..10],
+    -- workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
+    --               "<fn=1><fc=#f5b041>\xf269</fc></fn>",
+    --               "<fn=1><fc=#27ae60>\xf1bc</fc></fn>",
+    --               "<fn=1><fc=#5dade2>\xf121</fc></fn>"] <+> map show [5..10],
     handleEventHook = fullscreenEventHook,
     modMask = mod4Mask
     }
