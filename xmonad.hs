@@ -156,6 +156,7 @@ initx = do
   spawn "pasystray"
   spawn "taffybar"
   spawn "dunst"
+  spawn "insync start"
   spawn "udiskie --appindicator -t  -f nautilus"
   spawn "nm-applet --sm-disable --indicator"
   spawn "xsetroot -solid '#282a36'"
@@ -193,6 +194,8 @@ main = do
                <+> (className =? "ProtonMail Bridge" --> doCenterFloat) -- protonmail bridge
                <+> (className =? "emacs" --> doShift "emacs")
                <+> (className =? "jetbrains-datagrip" --> doFloat)
+               <+> (className =? "jetbrains-studio" --> doCenterFloat)
+               <+> (className =? "Molotov" --> doCenterFloat)
                <+> (className =? "Pinentry" --> doFloat)
                <+> (className =? "Yubioath-gui" --> doFloat)
                <+> (className =? "yubioath-gui" --> doFloat)
