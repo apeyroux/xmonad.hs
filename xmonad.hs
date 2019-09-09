@@ -32,7 +32,7 @@ http://xmonad.org/xmonad-docs/xmonad/src/XMonad-Core.html#XConfig
 --}
 
 term :: String
-term = "termite"
+term = "alacritty"
 
 browser :: String
 browser = "google-chrome"
@@ -150,23 +150,24 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/bg.jpg"
-  spawn "xembedsniproxy"
-  spawn "status-notifier-item-static"
-  spawn "status-notifier-watcher"
-  spawn "pasystray"
-  spawn "taffybar"
+  -- spawn "xembedsniproxy"
+  -- spawn "status-notifier-item-static"
+  -- spawn "status-notifier-watcher"
+  -- spawn "pasystray"
+  -- spawn "taffybar"
   spawn "dunst"
   spawn "insync start"
-  spawn "udiskie --appindicator -t  -f nautilus"
-  spawn "nm-applet --sm-disable --indicator"
+  -- spawn "udiskie --appindicator -t  -f nautilus"
+  -- spawn "nm-applet --sm-disable --indicator"
   spawn "xsetroot -solid '#282a36'"
 
 main :: IO()
 main = do
   xmobar <- spawnPipe "xmobar"
-  xmonad $ ewmh $ docks $ pagerHints cfg 
+  -- xmonad $ ewmh $ docks $ pagerHints cfg
+  xmonad $ ewmh (cfg xmobar)
   where
-    cfg = docks $ def {
+    cfg xbar = docks $ def {
       manageHook = manageDocks
                <+> (isFullscreen --> doFullFloat)
                <+> (className =? "Vlc" --> doFloat)
@@ -220,7 +221,7 @@ main = do
     -- logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
-    focusedBorderColor = "#8E44AD",
+    focusedBorderColor = "#ff1493",
     -- workspaces = ["<fn=1><fc=#5dade2>\xf108</fc></fn>",
     --               "<fn=1><fc=#f5b041>\xf269</fc></fn>",
     --               "<fn=1><fc=#27ae60>\xf1bc</fc></fn>",
