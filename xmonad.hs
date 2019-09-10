@@ -95,7 +95,7 @@ myLogHook proc = dynamicLogWithPP $ xmobarPP
   --     )
   }
   where
-    currentStyle = xmobarColor "#fff" "" . wrap "<fc=#ff1493><fn=1>\xf105</fn></fc> " " <fc=#e74c3c><fn=1>\xf104</fn></fc>"
+    currentStyle = xmobarColor "#fff" "" . wrap "<fc=#ff1493><fn=1>\xf105</fn></fc> " " <fc=#ff1493><fn=1>\xf104</fn></fc> "
     visibleStyle = wrap "(" ")"
     titleStyle   = xmobarColor "#fff" "" . shorten 200 . filterCurly
     filterCurly  = filter (not . isCurly)
