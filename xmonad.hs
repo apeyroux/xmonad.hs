@@ -21,6 +21,8 @@ import           XMonad.Prompt
 import           XMonad.Prompt.Shell
 import           XMonad.Prompt.Workspace
 import qualified XMonad.StackSet as W
+-- https://hackage.haskell.org/package/xmonad-extras-0.15.1/docs/XMonad-Util-Brightness.html
+import           XMonad.Util.Brightness as Brightness
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Loggers
 import           XMonad.Util.Run (safeSpawn, spawnPipe)
@@ -132,8 +134,10 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((noModMask, xF86XK_AudioMute), void (toggleMuteChannels ["PulseAudio", "Master"]))
   , ((modMask, xK_Left              ), sendMessage Shrink)
   , ((modMask, xK_Right             ), sendMessage Expand)
-  , ((noModMask, xF86XK_MonBrightnessUp             ), spawn "hbrightness -m eDP-1 -a Up")
-  , ((noModMask, xF86XK_MonBrightnessDown             ), spawn "hbrightness -m eDP-1 -a Down")  
+  , ((noModMask, xF86XK_MonBrightnessUp             ), Brightness.increase)
+  , ((noModMask, xF86XK_MonBrightnessDown             ), Brightness.decrease)  
+  -- , ((noModMask, xF86XK_MonBrightnessUp             ), spawn "hbrightness -m eDP-1 -a Up")
+  -- , ((noModMask, xF86XK_MonBrightnessDown             ), spawn "hbrightness -m eDP-1 -a Down")  
   -- , ((modMask .|. controlMask, xK_h ), spawn "xrandr --output HDMI1 --auto --output eDP1 --off")
   -- , ((modMask .|. shiftMask, xK_h   ), spawn "xrandr --output eDP1 --auto --output HDMI1 --off")
   , ((modMask .|. shiftMask, xK_h   ), spawn "hsdmi")
