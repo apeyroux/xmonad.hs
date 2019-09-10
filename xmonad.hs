@@ -109,7 +109,7 @@ myKeys conf@XConfig {XMonad.modMask = modMask} = M.fromList $
   , ((modMask, xK_Down              ), windows W.focusDown)
   , ((modMask .|. shiftMask, xK_d   ), shellPrompt def)
   , ((modMask, xK_b                 ), sendMessage ToggleStruts)
-  , ((modMask, xK_q                 ), spawn "pkill pasystray; pkill stalonetray; pkill udiskie; pkill volumeicon; pkill xfce4-power-man; pkill nm-applet; xmonad --recompile; xmonad --restart")
+  -- , ((modMask, xK_q                 ), spawn "pkill pasystray; pkill stalonetray; pkill udiskie; pkill volumeicon; pkill xfce4-power-man; pkill nm-applet; xmonad --recompile; xmonad --restart")
   , ((modMask, xK_d                 ), shellPrompt def)
   , ((modMask, xK_x                 ), spawn "slimlock")
   , ((modMask, xK_f                 ), sendMessage $ Toggle FULL)
