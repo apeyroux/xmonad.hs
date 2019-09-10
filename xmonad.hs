@@ -82,7 +82,8 @@ myLogHook proc = dynamicLogWithPP $ xmobarPP
   , ppCurrent = currentStyle
   , ppVisible = visibleStyle
   , ppTitle   = titleStyle
-  , ppSep = " <fn=1>\xf101</fn> "
+  -- , ppSep = " <fn=1><fc=#ff1493>\xf101</fc></fn> "
+  , ppSep = " "
   -- , ppLayout  = (\layout -> case layout of
   --     "Tall"        -> "[|]"
   --     "Mirror Tall" -> "[-]"
@@ -92,7 +93,7 @@ myLogHook proc = dynamicLogWithPP $ xmobarPP
   --     )
   }
   where
-    currentStyle = xmobarColor "#fff" "" . wrap "<fc=#e74c3c><fn=1>\xf105</fn></fc> " " <fc=#e74c3c><fn=1>\xf104</fn></fc>"
+    currentStyle = xmobarColor "#fff" "" . wrap "<fc=#ff1493><fn=1>\xf105</fn></fc> " " <fc=#e74c3c><fn=1>\xf104</fn></fc>"
     visibleStyle = wrap "(" ")"
     titleStyle   = xmobarColor "#fff" "" . shorten 200 . filterCurly
     filterCurly  = filter (not . isCurly)
@@ -217,8 +218,9 @@ main = do
                  <+> keys def c
                  <+> myKeys c,
     layoutHook = smartBorders $ avoidStruts $ mkToggle (NOBORDERS ?? FULL ?? EOT) myLayout,
-    startupHook = initx <+> docksStartupHook <+> startupHook def,
-    -- logHook = myLogHook xbar,
+    -- startupHook = initx <+> docksStartupHook <+> startupHook def,
+    startupHook = initx <+> startupHook def,
+    logHook = myLogHook xbar,
     borderWidth = 1,
     normalBorderColor  = "#44475a",
     focusedBorderColor = "#ff1493",
