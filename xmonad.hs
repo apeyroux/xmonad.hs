@@ -155,7 +155,7 @@ initx :: X()
 initx = do
   setWMName "LG3D"
   spawn "feh --bg-scale /home/alex/.bg/bg.jpg"
-  spawn "sudo chgrp -R -H xmonad /sys/class/backlight/intel_backlight"
+  spawn "sudo chgrp -R -H users /sys/class/backlight/intel_backlight"
   spawn "sudo chmod g+w /sys/class/backlight/intel_backlight/brightness"
   -- spawn "xembedsniproxy"
   -- spawn "status-notifier-item-static"
