@@ -2,6 +2,9 @@
 -- https://fontawesome.com/cheatsheet
 -- echo -ne "\uf1eb" | xclip -selection clipboard
 --
+-- install xmobar-sync-status:
+-- nix-env -if https://github.com/apeyroux/xmobar-sync-status/archive/master.tar.gz
+--
 Config { font = "xft:Noto Sans:pixelsize=13,M+ 1c:pixelsize=13"
         , additionalFonts = [ "xft:FontAwesome:pixelsize=13" ]
         , bgColor = "#282a36"
